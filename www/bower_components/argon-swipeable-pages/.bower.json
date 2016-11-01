@@ -1,0 +1,38 @@
+{
+  "name": "argon-swipeable-pages",
+  "description": "argon-swipeable-pages is a polymer web-component and displays a virtual, 'infinite' page collection. It is optimized for a large amout of pages.",
+  "authors": [
+    "Marc Kronberg"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "swipeable"
+  ],
+  "main": "argon-swipeable-pages.html",
+  "license": "MIT License",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "neon-animation": "PolymerElements/neon-animation#^1.2.3"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.7"
+  },
+  "homepage": "https://github.com/krocon/argon-swipeable-pages",
+  "_release": "907225a05b",
+  "_resolution": {
+    "type": "commit",
+    "commit": "907225a05bb41979925fcdc041ee6a86264c342e"
+  },
+  "_source": "https://github.com/krocon/argon-swipeable-pages.git",
+  "_target": "907225a05bb41979925fcdc041ee6a86264c342e",
+  "_originalSource": "argon-swipeable-pages"
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <title>argon-swipeable-pages demo 3</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <!--<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>-->
+
+    <link rel="import" href="../argon-swipeable-pages.html">
+
+    <style>
+        html, body {width: 100%; height:100%; margin:0;padding:0;border:0}
+        #testdiv {width: 100%; height:100%;}
+    </style>
+</head>
+<body unresolved>
+
+
+<dom-module id="argon-swipeable-pages-demo3">
+    <template>
+
+    <argon-swipeable-pages id="testdiv" items="{{pages}}">
+        <template>
+            <div style="padding:20px;">
+                <h1>[[getNumber(index)]]) [[item.en]]</h1>
+                <h2>Item: [[item.en]] -> [[item.de]]</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, [[index]] consetetur sadipscing elitr, [[index]] sed diam nonumy eirmod
+                    <b>[[index]]</b> tempor invidunt ut labore et dolore [[index]] magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+        </template>
+    </argon-swipeable-pages>
+
+    </template>
+
+    <script>
+        HTMLImports.whenReady(function () {
+
+            Polymer({
+                is: 'argon-swipeable-pages-demo3',
+                properties: {
+                    pages: {
+                        type:Array,
+                        value: [
+                            { en: "one", de: "eins"},
+                            { en: "two", de: "zwei"},
+                            { en: "three", de: "drei"},
+                            { en: "four", de: "vier"},
+                            { en: "five", de: "fünf"},
+                            { en: "six", de: "sechs"}
+                        ]
+                    }
+                },
+                getNumber: function (idx) {
+                    return idx + 1;
+                }
+            });
+        });
+    </script>
+</dom-module>
+
+<argon-swipeable-pages-demo3></argon-swipeable-pages-demo3>
+
+</body>
+</html>

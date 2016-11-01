@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <title>argon-swipeable-pages demo 3</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-ajax/iron-ajax.html">
+
+    <link rel="import" href="../argon-swipeable-pages.html">
+
+    <style>
+        html, body {width: 100%; height:100%; margin:0;padding:0;border:0}
+        #testdiv {width: 100%; height:100%;}
+        #testdiv .item {padding:50px;}
+        #testdiv .item  .profile{border-radius: 50%;}
+    </style>
+</head>
+<body unresolved>
+
+
+<dom-module id="argon-swipeable-pages-demo3">
+    <template is="dom-bind">
+
+    <iron-ajax url="data/contacts.json" last-response="{{data}}" auto></iron-ajax>
+
+    <argon-swipeable-pages id="testdiv" items="{{data}}">
+        <template>
+            <div class="item">
+                <b>#[[index]] - [[item.name]]</b>
+                <p>
+                    <img class="profile" src="[[item.image]]">
+                </p>
+                <p>[[item.longText]]</p>
+            </div>
+        </template>
+    </argon-swipeable-pages>
+    </template>
+</dom-module>
+
+<argon-swipeable-pages-demo3></argon-swipeable-pages-demo3>
+
+</body>
+</html>

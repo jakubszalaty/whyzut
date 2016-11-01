@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <title>argon-swipeable-pages demos</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../argon-swipeable-pages.html">
+    <link rel="import" href="../../paper-styles/demo-pages.html">
+
+    <style>
+        a {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        li {
+            list-style: none;
+        }
+        argon-swipeable-pages {width: 50%; height: 300px;}
+    </style>
+</head>
+<body unresolved>
+
+<div class="horizontal-section-container">
+    <div>
+        <h4>argon-swipeable-pages demos</h4>
+        <ul class="horizontal-section">
+            <li><a href="basic.html" target="_blank">Pages with page-count model (in a small area)</a></li>
+            <li><a href="items.html" target="_blank">Pages with items (fullscreen)</a></li>
+            <li><a href="items_as_asindex.html" target="_blank">Pages with items, as and as-index</a></li>
+            <li><a href="ajax.html" target="_blank">Pages and ajax</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="horizontal-section-container">
+    <argon-swipeable-pages page-count="99">
+        <template>
+            <h3>Index [[index]]</h3>
+            <p>Click on left area or right area</p>
+            <p>Or swipe page with mouse.</p>
+            Lorem ipsum dolor sit amet, [[index]] consetetur sadipscing elitr, [[index]] sed diam nonumy eirmod
+            <b>[[index]]</b> tempor invidunt ut labore et dolore [[index]] magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </template>
+    </argon-swipeable-pages>
+</div>
+
+</body>
+</html>
