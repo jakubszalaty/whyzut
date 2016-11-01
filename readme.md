@@ -6,15 +6,14 @@ Aplikacja pobiera plan zajęć bezpośrednio z zutowskiego e-dziekanatu (wymaga
 
 ## TO DO
 
-- zainstalować i skonfigurować phonegap (postawić apke testową)
+- ~~zainstalować i skonfigurować phonegap (postawić apke testową)~~
 
-- napisac algorytm ktory bedzie wchodzil na edziekanat i pobieral plan zajec na wybrany okres czasu
-  - jakies webview ktore bedzie sie logowalo na edziekanat a nastepnie przechodzilo na plan zajec
-  - parser htmlowych tabel
-  - ew. pobierac icalc, moze jest jakis staly adres
+- ~~napisac algorytm ktory bedzie wchodzil na edziekanat i pobieral plan zajec na wybrany okres czasu~~
+  - ~~jakies webview ktore bedzie sie logowalo na edziekanat a nastepnie przechodzilo na plan zajec~~
+  - ~~pobierac icalc~~
 
 - zaszyfrować dane do logowania w bazie danych aplikacji
 
-- wdrozyć polymera z material design
+- ~~wdrozyć polymera z material design~~
 
 - zrobic tez wersje light gdzie polymer zostanie zastapiony jakims prostym frameworkiem (moze byc wiele wersji np. androidowa, ios, windowsowa z mozliwoscia wyboru)
