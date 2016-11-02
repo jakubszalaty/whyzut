@@ -36,9 +36,8 @@
 
       // app.receivedEvent('deviceready');
       var connect = document.querySelector('#connect');
-
+      var time;
       connect.addEventListener('click',function(){
-
         // app.playVibrate();
         $('.result2').html('');
         $.get('https://edziekanat.zut.edu.pl/WU/PodzGodzin.aspx', function( data ) {
@@ -84,7 +83,25 @@
               $result.html(data);
               console.log('Pobrano!');
               // $('.result2').html(data);
-              $('.result2').html($result.find('#ctl00_ctl00_ContentPlaceHolder_RightContentPlaceHolder_dgDane').html());
+              // $('.result2').html($result.find('#ctl00_ctl00_ContentPlaceHolder_RightContentPlaceHolder_dgDane').html());
+              var href = $result.find('#ctl00_ctl00_ContentPlaceHolder_RightContentPlaceHolder_btn_DrukujICS').attr('onclick');
+              // zamien to kiedys na regexpa
+              href = href.replace("window.open('",'').replace("')",'');
+              // pobieranie ical
+              $.get('https://edziekanat.zut.edu.pl/WU/' + href, function( data ) {
+
+                time = new Date();
+                // console.log(data);
+                var jcalData = ICAL.parse(data);
+
+                var comp = new ICAL.Component(jcalData);
+                var vevent = comp.getFirstSubcomponent("vevent");
+                var event = new ICAL.Event(vevent);
+                var summary = event.summary;
+                time = new Date() - time;
+                $('.result2').html(summary + "<br>" + time + "ms");
+
+              });
 
             });
 
