@@ -1,0 +1,90 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+
+<dom-module id="paper-card-repeater">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+      }
+
+      paper-card { @apply(--layout-horizontal); }
+      .rate-image {
+        width: 100px;
+        height: 170px;
+        /*background: url('../img/donuts.png');*/
+        background-color: #F934C2;
+        background-size: cover;
+      }
+      .rate-content {
+        @apply(--layout-flex);
+        float: left;
+      }
+      .rate-header { @apply(--paper-font-headline); font-size: 20px; }
+      .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+      paper-icon-button.rate-icon {
+        --iron-icon-fill-color: white;
+        --iron-icon-stroke-color: var(--paper-grey-600);
+      }
+
+      paper-card{
+        margin-bottom: 8px;
+      }
+      paper-card:last-child{
+        margin-bottom: 0px;
+      }
+    </style>
+
+    <template is="dom-repeat" items="{{elements}}">
+
+        <paper-card class="rate">
+          <div class="rate-image"></div>
+          <div class="rate-content">
+            <div class="card-content">
+              <div class="rate-header">{{ _shortName(item.Przedmiot) }}</div>
+              <div class="rate-name">{{ item.Prowadzacy }}</div>
+              <div>Forma {{ item.Forma_zajec_nazwa }}</div>
+              <div>Sala {{ item.Sala }}</div>
+            </div>
+            <!-- <div class="card-actions">
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+            </div> -->
+          </div>
+        </paper-card>
+
+
+
+    </template>
+
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'paper-card-repeater',
+
+      hostAttributes: {
+
+      },
+
+
+      properties: {
+        elements: {
+          type: Array
+        }
+      },
+      _shortName: function (name) {
+        if(name.length < 30)
+          return name;
+
+        return name.slice(0, 30).trim() + "...";
+      }
+
+    });
+  </script>
+</dom-module>
