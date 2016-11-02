@@ -46,7 +46,8 @@
         // $table = $(tableHtml);
 
         $.get('https://edziekanat.zut.edu.pl/WU/PodzGodzin.aspx', function( data ) {
-          console.log('Pobrano strone logowania');
+          $('.result').append('<p>Pobrano strone logowania</p>');
+          // console.log('Pobrano strone logowania');
           // pozniej result zamien na wirtualny div
           $result = $('<div>');
           // $result = $('.result');
@@ -72,7 +73,8 @@
             url: action,
             data: serialized,
           }).done(function(data, textStatus, request){
-            console.log('Zalogowano');
+            $('.result').append('<p>Zalogowano</p>');
+            // console.log('Zalogowano');
             $result.html(data);
             $form = $result.find('form');
 
@@ -88,7 +90,8 @@
               data: serialized,
             }).done(function(data, textStatus, request){
               $result.html(data);
-              console.log('Pobrano!');
+              $('.result').append('<p>Pobrano!</p>');
+              // console.log('Pobrano!');
               // $('.result2').html(data);
               // $('.result2').html($result.find('#ctl00_ctl00_ContentPlaceHolder_RightContentPlaceHolder_dgDane').html());
               $table = $result.find('#ctl00_ctl00_ContentPlaceHolder_RightContentPlaceHolder_dgDane');
@@ -126,12 +129,14 @@
             });
 
           }).fail(function(data) {
-            console.log('Niezalogowano');
+            $('.result').append('<p>Niezalogowano</p>');
+            // console.log('Niezalogowano');
           });
 
 
         }).fail(function() {
-          console.log('Błąd');
+          $('.result').append('<p>Błąd</p>');
+          // console.log('Błąd');
         });
 
         // console.log('vibracje');
