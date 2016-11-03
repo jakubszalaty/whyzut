@@ -1,7 +1,7 @@
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/paper-input/paper-input.html">
-<link rel="import" href="/bower_components/paper-button/paper-button.html">
-<link rel="import" href="/bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 
 
 <dom-module id="app-login-form">
@@ -10,6 +10,7 @@
       :host {
         display: block;
         position: relative;
+        margin-bottom: 8px;
       }
       paper-button{
         width: 100%;
@@ -21,7 +22,7 @@
     </style>
 
     <iron-localstorage
-        name="localStorageApp"
+        name="userData"
         value="{{data}}"
         on-iron-localstorage-load-empty="initializeDefaultValue"
         ></iron-localstorage>

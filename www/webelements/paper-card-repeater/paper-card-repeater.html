@@ -1,6 +1,6 @@
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/bower_components/paper-card/paper-card.html">
-
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <dom-module id="paper-card-repeater">
   <template>
     <style>
@@ -36,10 +36,19 @@
       }
     </style>
 
+    <iron-localstorage
+      name="subjectList"
+      value="{{elements}}"
+      on-iron-localstorage-load-empty="initializeDefaultValue"
+      ></iron-localstorage>
+
+
     <template is="dom-repeat" items="{{elements}}">
 
         <paper-card class="rate">
-          <div class="rate-image"></div>
+          <div class="rate-image">
+            <div>{{ item.Data_zajac }}</div>
+          </div>
           <div class="rate-content">
             <div class="card-content">
               <div class="rate-header">{{ _shortName(item.Przedmiot) }}</div>
@@ -83,6 +92,9 @@
           return name;
 
         return name.slice(0, 30).trim() + "...";
+      },
+      initializeDefaultValue: function(){
+        this.elements = [];
       }
 
     });
