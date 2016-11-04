@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <dom-module id="paper-card-repeater">
   <template>
     <style>
@@ -10,20 +11,29 @@
       }
 
       paper-card { @apply(--layout-horizontal); }
-      .rate-image {
+      .box-info {
         width: 100px;
-        height: 170px;
-        /*background: url('../img/donuts.png');*/
-        background-color: #F934C2;
+        height: auto;
+        background-color: #3f51b5;
         background-size: cover;
+        position: relative;
       }
-      .rate-content {
+      .box-info-text {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: calc(50% - 21px);
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+      }
+      .box-content {
         @apply(--layout-flex);
         float: left;
       }
-      .rate-header { @apply(--paper-font-headline); font-size: 20px; }
-      .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
-      paper-icon-button.rate-icon {
+      .box-header { @apply(--paper-font-headline); font-size: 20px; }
+      .box-name { color: var(--paper-grey-600); margin: 10px 0; }
+      paper-icon-button.box-icon {
         --iron-icon-fill-color: white;
         --iron-icon-stroke-color: var(--paper-grey-600);
       }
@@ -34,6 +44,18 @@
       paper-card:last-child{
         margin-bottom: 0px;
       }
+      .white{
+        background-color: white;
+        color: black;
+      }
+      .buttons{
+        margin-bottom: 8px;
+        text-align: center;
+      }
+      .buttons paper-button{
+        margin:0;
+
+      }
     </style>
 
     <iron-localstorage
@@ -42,26 +64,35 @@
       on-iron-localstorage-load-empty="initializeDefaultValue"
       ></iron-localstorage>
 
+    <div class="buttons">
+      <paper-button raised class="white" on-tap="prevOffset" style="min-width: auto;"> < </paper-button>
 
-    <template is="dom-repeat" items="{{elements}}">
+      <paper-button raised class="white" on-tap="setRangeDay">Dzień</paper-button>
+      <paper-button raised class="white" on-tap="setRangeWeek">Tydzień</paper-button>
+      <paper-button raised class="white" on-tap="setRangeMonth">Miesiąc</paper-button>
+
+      <paper-button raised class="white" on-tap="nextOffset" style="min-width: auto;"> > </paper-button>
+    </div>
+
+    <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd)}}" items="{{elements}}" as="elem">
 
         <paper-card class="rate">
-          <div class="rate-image">
-            <div>{{ item.Data_zajac }}</div>
+          <div class="box-info">
+            <div class="box-info-text">{{ elem.Data_zajac }} {{ elem.Od }}</div>
           </div>
-          <div class="rate-content">
+          <div class="box-content">
             <div class="card-content">
-              <div class="rate-header">{{ _shortName(item.Przedmiot) }}</div>
-              <div class="rate-name">{{ item.Prowadzacy }}</div>
-              <div>Forma {{ item.Forma_zajec_nazwa }}</div>
-              <div>Sala {{ item.Sala }}</div>
+              <div class="box-header">{{ _shortName(elem.Przedmiot) }}</div>
+              <div class="box-name">{{ elem.Prowadzacy }}</div>
+              <div>Forma {{ elem.Forma_zajec_nazwa }}</div>
+              <div>Sala {{ elem.Sala }}</div>
             </div>
             <!-- <div class="card-actions">
-              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
-              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
-              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
-              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
-              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
             </div> -->
           </div>
         </paper-card>
@@ -85,6 +116,18 @@
       properties: {
         elements: {
           type: Array
+        },
+        offsetStart:{
+          type: Number,
+          value: 0
+        },
+        offsetEnd:{
+          type: Number,
+          value: 0
+        },
+        range: {
+          type: String,
+          value: 'week'
         }
       },
       _shortName: function (name) {
@@ -95,6 +138,59 @@
       },
       initializeDefaultValue: function(){
         this.elements = [];
+      },
+      setRange: function(range){
+        this.range = range;
+        this.offsetStart = 0;
+        this.offsetEnd = 0;
+      },
+      setRangeDay: function(){
+        this.range = "day";
+        this.offsetStart = 0;
+        this.offsetEnd = 0;
+      },
+      setRangeWeek: function(){
+        this.range = "week";
+        this.offsetStart = 0;
+        this.offsetEnd = 0;
+      },
+      setRangeMonth: function(){
+        this.range = "month";
+        this.offsetStart = 0;
+        this.offsetEnd = 0;
+      },
+      nextOffset: function(){
+        this.offsetStart += 1;
+        this.offsetEnd += 1;
+      },
+      prevOffset: function(){
+        this.offsetStart -= 1;
+        this.offsetEnd -= 1;
+      },
+      isInRange: function(range,offsetStart, offsetEnd){
+
+        if (!range) {
+          // set filter to null to disable filtering
+          return null;
+        } else {
+
+          return function(elem) {
+
+            var date = elem.Data_zajac.split(' ');
+
+            date = date[0] + elem.Od;
+
+            momentDate = moment(date, "DD.MM.YYYY HH:mm");
+
+             // moment().startOf('day').add(0, 'day');
+            var start = moment().startOf(range).add(offsetStart, range);
+
+            var end = moment().endOf(range).add(offsetEnd, range);
+            return momentDate.isBetween( start, end );
+
+          };
+
+        }
       }
 
     });
