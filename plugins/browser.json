@@ -63,6 +63,10 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.szalaty.whyzut"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "277377065288",
+            "PACKAGE_NAME": "com.szalaty.whyzut"
         }
     },
     "dependent_plugins": {

@@ -19,17 +19,29 @@
         background-color: var(--paper-indigo-500);
         color: white;
       }
+      paper-button.red {
+        background-color: var(--google-red-500);
+        color: white;
+      }
     </style>
 
     <iron-localstorage
         name="userData"
         value="{{data}}"
-        on-iron-localstorage-load-empty="initializeDefaultValue"
         ></iron-localstorage>
+
+    <iron-localstorage
+      name="userInfo"
+      value="{{user}}"
+      ></iron-localstorage>
+
 
     <paper-input id="login" label="Identyfikator" value="{{data.login}}"></paper-input>
     <paper-input id="password" label="Hasło" type="password" value="{{data.password}}"></paper-input>
-    <paper-button id="connect" raised class="indigo">Pobierz</paper-button>
+
+    <paper-button id="connect" raised class="indigo">Zaloguj</paper-button>
+
+    <paper-button id="clear" raised class="red" on-tap="clearLocalStorage">Wyczyść dane</paper-button>
 
 
   </template>
@@ -43,12 +55,23 @@
           type: Object
         }
       },
-      initializeDefaultValue: function(){
+      clearLocalStorage: function(){
         this.data = {
           login: "",
           password: ""
         };
-      }
+
+        this.user = {
+          name: "Niezalogowany",
+          logged: false
+        };
+      },
+      initializeDefaultUserData: function(){
+        this.data = {
+          login: "",
+          password: ""
+        };
+      },
     });
   </script>
 </dom-module>

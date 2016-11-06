@@ -60,6 +60,6 @@
     "commit": "84481a2c2783f8ce6951a8e85b8f993cc6852a2c"
   },
   "_source": "https://github.com/MeTaNoV/iron-swipeable-pages.git",
-  "_target": "^1.2.6",
+  "_target": "*",
   "_originalSource": "iron-swipeable-pages"
 }

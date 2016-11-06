@@ -76,6 +76,12 @@
             // $('.result').append('<p>Zalogowano</p>');
             console.log('Zalogowano');
             $result.html(data);
+
+            var name = $result.find('#ctl00_ctl00_ContentPlaceHolder_wumasterWhoIsLoggedIn').text().replace(/ –.*/,'');
+
+            document.querySelector('main-app').set('user.logged', true);
+            document.querySelector('main-app').set('user.name', name);
+
             $form = $result.find('form');
 
             action = 'https://edziekanat.zut.edu.pl/WU/' + $form.attr('action');
@@ -124,6 +130,8 @@
 
               $('paper-card-repeater').prop('elements',elements);
 
+
+              navigator.notification.alert('Pobrano najnowszy plan');
 
 
             });

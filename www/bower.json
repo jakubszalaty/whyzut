@@ -16,14 +16,13 @@
     "tests"
   ],
   "dependencies": {
-    "app-layout": "PolymerLabs/app-layout",
-    "iron-elements": "^1.0.10",
-    "paper-elements": "^1.0.7",
-    "platinum-elements": "^2.0.0",
-    "neon-elements": "^1.0.0",
-    "iron-swipeable-pages": "^1.2.6",
-    "argon-swipeable-pages": "907225a05bb41979925fcdc041ee6a86264c342e",
+    "iron-elements": "*",
+    "paper-elements": "*",
+    "platinum-elements": "*",
+    "neon-elements": "*",
+    "iron-swipeable-pages": "*",
     "jquery": "^3.1.1",
-    "moment": "^2.15.2"
+    "moment": "^2.15.2",
+    "app-elements": "^0.10.0"
   }
 }

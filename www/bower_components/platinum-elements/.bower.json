@@ -27,6 +27,6 @@
     "commit": "43fcda76ab7638ea67d65bdaa48fa4c1a4d307b9"
   },
   "_source": "https://github.com/PolymerElements/platinum-elements.git",
-  "_target": "^2.0.0",
+  "_target": "*",
   "_originalSource": "platinum-elements"
 }

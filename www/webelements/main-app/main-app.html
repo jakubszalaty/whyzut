@@ -1,13 +1,4 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
+<!-- webelements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
@@ -20,8 +11,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
-<!-- <link rel="import" href="../../bower_components/paper-card/paper-card.html"> -->
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
 
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<!-- custom elements -->
 <link rel="import" href="../app-login-form/app-login-form.html">
 <link rel="import" href="../paper-card-repeater/paper-card-repeater.html">
 
@@ -80,52 +78,80 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-icon-button-ink-color: white;
       }
 
+      .drawer-container{
+        /*height: 182px;*/
+      }
+
     </style>
 
-    <app-location route="{{route}}"></app-location>
+    <iron-localstorage
+      name="userInfo"
+      value="{{user}}"
+      on-iron-localstorage-load-empty="initializeDefaultUserInfo"
+      ></iron-localstorage>
+
+
+
+    <app-location use-hash-as-path route="{{route}}"></app-location>
     <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}">
-    </app-route>
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}">
+  </app-route>
 
-    <app-drawer-layout>
+  <app-drawer-layout>
 
-      <app-drawer>
-        <app-toolbar>Getting Started</app-toolbar>
+    <app-drawer id="drawer" swipe-open>
+      <app-header-layout has-scrolling-region>
+
+        <app-header fixed>
+            <app-toolbar style="height: 128px;"></app-toolbar>
+
+            <app-toolbar style="height: 64px;">
+              <div class="drawer-container">
+                <div class="info">
+                  <div class="name">Witaj {{user.name}}!</div>
+                </div>
+              </div>
+            </app-toolbar>
+
+        </app-header>
+
+          <!-- nav menu -->
+          <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
+            <paper-item route="/main">Plan</paper-item>
+            <paper-item route="/settings">Ustawienia</paper-item>
+          </paper-listbox>
+
+        </app-header-layout>
       </app-drawer>
 
       <app-header-layout>
-
         <app-header reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title>Ustawienia</div>
+            <div main-title> [[title]] </div>
           </app-toolbar>
         </app-header>
 
-        <div class="content">
-          <div class="setting-content">
-            <h2>{{route}}</h2>
-            <app-login-form></app-login-form>
+
+        <neon-animated-pages id="pages" attr-for-selected="route" selected="{{route.path}}">
+          <div class="content" route="/main">
+
+            <paper-card-repeater></paper-card-repeater>
+
 
           </div>
 
-<!--           <paper-card class="rate">
-            <div class="rate-content">
-              <div class="card-content">
-
-
-              </div>
-
+          <div class="content" route="/settings">
+            <div class="setting-content">
+              <app-login-form></app-login-form>
             </div>
-          </paper-card>
- -->
-          <paper-card-repeater></paper-card-repeater>
 
+          </div>
 
-        </div>
+        </neon-animated-pages>
 
       </app-header-layout>
 
@@ -137,8 +163,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'main-app'
+      is: 'main-app',
 
+      properties: {
+        route: {
+          type: Object
+        }
+      },
+
+      attached: function(){
+
+        if(!this.user.logged)
+          return this.set('route.path','/settings');
+
+        if(!this.route.path)
+          return this.set('route.path','/main');
+      },
+
+      observers: [
+        '_routePathChanged(route.path)'
+      ],
+
+      _routePathChanged: function(path) {
+        if (path == '/main') {
+          this.set('title','Plan');
+        }
+
+        if (path == '/settings') {
+          this.set('title','Ustawienia');
+        }
+
+      },
+      _drawerSelected: function() {
+        if (!this.$.drawer.persistent) this.$.drawer.close();
+      },
+
+      initializeDefaultUserInfo: function(){
+        this.user = {
+          name: "Niezalogowany",
+          logged: false
+        };
+      }
     });
 
   </script>
