@@ -20,6 +20,9 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+
 <link rel="import" href="../../bower_components/paper-date-picker/paper-date-picker.html">
 
 <!-- custom elements -->
@@ -35,6 +38,7 @@
         height: auto;
         padding: 8px;
         min-height: calc(100vh - 64px);
+        position: relative;
       }
       .content paper-card{
         margin-bottom: 8px;
@@ -91,6 +95,32 @@
         }
       }
 
+      #datePickerOuter{
+        transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 0px;
+        overflow: hidden;
+        background-color: #FFF;
+        position: absolute;
+        z-index: 10;
+        will-change: height;
+      }
+
+      #mainPages.shadow {
+        overflow: hidden;
+      }
+      #mainPages.shadow:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000;
+        opacity: 0.4;
+        z-index: 8;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: all;
+    }
 
     </style>
 
@@ -148,25 +178,36 @@
       </app-drawer>
 
       <app-header-layout>
-        <paper-date-picker></paper-date-picker>
+
+
         <app-header reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title> [[title]] </div>
+            <div main-title> [[title]]  </div>
 
             <template is="dom-if" if="{{user.logged}}">
               <div class="last-check"> [[user.lastCheck]] </div>
               <paper-icon-button icon="refresh" on-tap="_refreshData"></paper-icon-button>
+              <paper-icon-button icon="today" on-tap="_toggleDatapicker"></paper-icon-button>
+              <paper-menu-button horizontal-align="right">
+                <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+                <paper-menu class="dropdown-content" selected="{{range}}" attr-for-selected="range">
+                  <paper-item range="day">Dzień</paper-item>
+                  <paper-item range="week">Tydzień</paper-item>
+                </paper-menu>
+              </paper-menu-button>
             </template>
 
+          </app-toolbar>
+          <app-toolbar id="datePickerOuter">
+            <paper-date-picker locale="pl" date={{currentDate}}></paper-date-picker>
           </app-toolbar>
         </app-header>
 
 
-        <neon-animated-pages id="pages" attr-for-selected="route" selected="{{route.path}}">
+        <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
           <div class="content" route="/main">
-
-            <paper-card-repeater></paper-card-repeater>
+            <paper-card-repeater range="{{range}}" date="{{currentDate}}"></paper-card-repeater>
 
 
           </div>
@@ -208,7 +249,8 @@
       },
 
       observers: [
-        '_routePathChanged(route.path)'
+        '_routePathChanged(route.path)',
+        '_dateChanged(currentDate)'
       ],
 
       _routePathChanged: function(path) {
@@ -233,6 +275,23 @@
           return;
         this.set('toastText',text);
         this.$.updatedData.open();
+      },
+      _toggleDatapicker: function(){
+
+        if(this.$.datePickerOuter.classList.toggle('open')){
+          var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
+          this.$.datePickerOuter.style.height = height + 'px';
+          this.$.mainPages.classList.add('shadow');
+        }else{
+          this.$.datePickerOuter.style.height = "";
+          this.$.mainPages.classList.remove('shadow');
+        }
+      },
+      _dateChanged: function(){
+        if(this.$.datePickerOuter.classList.contains('open')){
+          this.$.datePickerOuter.style.height = "";
+          this.$.mainPages.classList.remove('shadow');
+        }
       },
       initializeDefaultUserInfo: function(){
         this.user = {

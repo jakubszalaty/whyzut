@@ -67,14 +67,13 @@
     <div class="buttons">
       <paper-button raised class="white" on-tap="prevOffset" style="min-width: auto;"> < </paper-button>
 
-      <paper-button raised class="white" on-tap="setRangeDay">Dzień</paper-button>
+      <!-- <paper-button raised class="white" on-tap="setRangeDay">Dzień</paper-button>
       <paper-button raised class="white" on-tap="setRangeWeek">Tydzień</paper-button>
-      <paper-button raised class="white" on-tap="setRangeMonth">Miesiąc</paper-button>
-
+      <paper-button raised class="white" on-tap="setRangeMonth">Miesiąc</paper-button> -->
       <paper-button raised class="white" on-tap="nextOffset" style="min-width: auto;"> > </paper-button>
     </div>
 
-    <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd)}}" items="{{elements}}" as="elem">
+    <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd,date)}}" items="{{elements}}" as="elem">
 
         <paper-card class="rate">
           <div class="box-info">
@@ -128,6 +127,10 @@
         range: {
           type: String,
           value: 'week'
+        },
+        date:{
+          type: Object,
+          value: new Date()
         }
       },
       _shortName: function (name) {
@@ -154,11 +157,6 @@
         this.offsetStart = 0;
         this.offsetEnd = 0;
       },
-      setRangeMonth: function(){
-        this.range = "month";
-        this.offsetStart = 0;
-        this.offsetEnd = 0;
-      },
       nextOffset: function(){
         this.offsetStart += 1;
         this.offsetEnd += 1;
@@ -167,7 +165,7 @@
         this.offsetStart -= 1;
         this.offsetEnd -= 1;
       },
-      isInRange: function(range,offsetStart, offsetEnd){
+      isInRange: function(range,offsetStart, offsetEnd,selectedDate){
 
         if (!range) {
           // set filter to null to disable filtering
@@ -183,9 +181,9 @@
             momentDate = moment(date, "DD.MM.YYYY HH:mm");
 
              // moment().startOf('day').add(0, 'day');
-            var start = moment().startOf(range).add(offsetStart, range);
+            var start = moment(selectedDate).startOf(range).add(offsetStart, range);
 
-            var end = moment().endOf(range).add(offsetEnd, range);
+            var end = moment(selectedDate).endOf(range).add(offsetEnd, range);
             return momentDate.isBetween( start, end );
 
           };
