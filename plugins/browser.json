@@ -67,6 +67,9 @@
         "phonegap-plugin-push": {
             "SENDER_ID": "277377065288",
             "PACKAGE_NAME": "com.szalaty.whyzut"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.szalaty.whyzut"
         }
     },
     "dependent_plugins": {
@@ -74,6 +77,9 @@
             "PACKAGE_NAME": "com.szalaty.whyzut"
         },
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.szalaty.whyzut"
+        },
+        "cordova-plugin-app-event": {
             "PACKAGE_NAME": "com.szalaty.whyzut"
         }
     }

@@ -18,6 +18,9 @@
 
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+
+<link rel="import" href="../../bower_components/paper-date-picker/paper-date-picker.html">
 
 <!-- custom elements -->
 <link rel="import" href="../app-login-form/app-login-form.html">
@@ -46,26 +49,6 @@
     </style>
 
 
-    <style is="custom-style">
-      paper-card.rate { @apply(--layout-horizontal); }
-      .rate-image {
-        width: 100px;
-        height: 170px;
-        background: url('img/donuts.png');
-        background-size: cover;
-      }
-      .rate-content {
-        @apply(--layout-flex);
-        float: left;
-      }
-      .rate-header { @apply(--paper-font-headline); }
-      .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
-      paper-icon-button.rate-icon {
-        --iron-icon-fill-color: white;
-        --iron-icon-stroke-color: var(--paper-grey-600);
-      }
-    </style>
-
     <style>
 
 
@@ -81,6 +64,33 @@
       .drawer-container{
         /*height: 182px;*/
       }
+      .last-check{
+        font-size: 12px;
+      }
+      .yellow-button {
+        text-transform: none;
+        color: #eeff41;
+        position: absolute;
+        right: 0;
+        top: 8px;
+      }
+
+      paper-date-picker{
+        margin: 0 auto;
+        position: relative;
+      }
+      @media (max-width: 520px) {
+        paper-date-picker{
+          left: calc(50% - 164px);
+        }
+      }
+
+      paper-date-picker{
+        --paper-date-picker-heading: {
+          display: none!important;
+        }
+      }
+
 
     </style>
 
@@ -100,6 +110,10 @@
       tail="{{subroute}}">
   </app-route>
 
+  <paper-toast class="fit-bottom" id="updatedData" duration="0" text="[[toastText]]">
+    <paper-button onclick="updatedData.toggle()" class="yellow-button">Ok</paper-button>
+  </paper-toast>
+
   <app-drawer-layout>
 
     <app-drawer id="drawer" swipe-open>
@@ -111,7 +125,7 @@
             <app-toolbar style="height: 64px;">
               <div class="drawer-container">
                 <div class="info">
-                  <div class="name">Witaj {{user.name}}!</div>
+                  <div class="name">Witaj, {{user.name}}!</div>
                 </div>
               </div>
             </app-toolbar>
@@ -120,18 +134,31 @@
 
           <!-- nav menu -->
           <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
-            <paper-item route="/main">Plan</paper-item>
-            <paper-item route="/settings">Ustawienia</paper-item>
+            <paper-item route="/main">
+              <paper-icon-button icon="list"></paper-icon-button>
+              Plan
+            </paper-item>
+            <paper-item route="/settings">
+              <paper-icon-button icon="settings"></paper-icon-button>
+              Ustawienia
+            </paper-item>
           </paper-listbox>
 
         </app-header-layout>
       </app-drawer>
 
       <app-header-layout>
+        <paper-date-picker></paper-date-picker>
         <app-header reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div main-title> [[title]] </div>
+
+            <template is="dom-if" if="{{user.logged}}">
+              <div class="last-check"> [[user.lastCheck]] </div>
+              <paper-icon-button icon="refresh" on-tap="_refreshData"></paper-icon-button>
+            </template>
+
           </app-toolbar>
         </app-header>
 
@@ -198,10 +225,20 @@
         if (!this.$.drawer.persistent) this.$.drawer.close();
       },
 
+      _refreshData: function() {
+        app.updateUserData();
+      },
+      toastMsg: function(text){
+        if(!text)
+          return;
+        this.set('toastText',text);
+        this.$.updatedData.open();
+      },
       initializeDefaultUserInfo: function(){
         this.user = {
           name: "Niezalogowany",
-          logged: false
+          logged: false,
+          lastCheck: null
         };
       }
     });
