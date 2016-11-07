@@ -40,6 +40,9 @@
 
       paper-card{
         margin-bottom: 8px;
+        width: 100%;
+        position: relative;
+        height: auto;
       }
       paper-card:last-child{
         margin-bottom: 0px;
@@ -73,9 +76,10 @@
       <paper-button raised class="white" on-tap="nextOffset" style="min-width: auto;"> > </paper-button>
     </div>
 
-    <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd,date)}}" items="{{elements}}" as="elem">
+    <div class="paper-card-outer">
+      <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd,date)}}" items="{{elements}}" as="elem">
+        <paper-card>
 
-        <paper-card class="rate">
           <div class="box-info">
             <div class="box-info-text">{{ elem.Data_zajac }} {{ elem.Od }}</div>
           </div>
@@ -95,10 +99,9 @@
             </div> -->
           </div>
         </paper-card>
+      </template>
 
-
-
-    </template>
+    </div>
 
 
   </template>

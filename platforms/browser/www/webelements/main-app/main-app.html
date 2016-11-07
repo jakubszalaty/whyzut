@@ -164,7 +164,7 @@
 
           <!-- nav menu -->
           <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
-            <paper-item route="/main">
+            <paper-item route="/main" disabled="[[!user.logged]]">
               <paper-icon-button icon="list"></paper-icon-button>
               Plan
             </paper-item>
@@ -240,7 +240,6 @@
       },
 
       attached: function(){
-
         if(!this.user.logged)
           return this.set('route.path','/settings');
 
