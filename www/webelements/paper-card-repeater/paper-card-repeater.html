@@ -68,12 +68,11 @@
       ></iron-localstorage>
 
     <div class="buttons">
-      <paper-button raised class="white" on-tap="prevOffset" style="min-width: auto;"> < </paper-button>
-
-      <!-- <paper-button raised class="white" on-tap="setRangeDay">Dzień</paper-button>
-      <paper-button raised class="white" on-tap="setRangeWeek">Tydzień</paper-button>
-      <paper-button raised class="white" on-tap="setRangeMonth">Miesiąc</paper-button> -->
-      <paper-button raised class="white" on-tap="nextOffset" style="min-width: auto;"> > </paper-button>
+      <!-- <paper-button raised class="white" on-tap="prevOffset" style="min-width: auto;"> < </paper-button> -->
+      <!-- <paper-button raised class="white" on-tap="setRangeDay">Dzień</paper-button> -->
+      <!-- <paper-button raised class="white" on-tap="setRangeWeek">Tydzień</paper-button> -->
+      <!-- <paper-button raised class="white" on-tap="setRangeMonth">Miesiąc</paper-button> -->
+      <!-- <paper-button raised class="white" on-tap="nextOffset" style="min-width: auto;"> > </paper-button> -->
     </div>
 
     <div class="paper-card-outer">
@@ -81,14 +80,14 @@
         <paper-card>
 
           <div class="box-info">
-            <div class="box-info-text">{{ elem.Data_zajac }} {{ elem.Od }}</div>
+            <div class="box-info-text">{{ elem.date }} {{ elem.dayName }} {{ elem.startTime }}</div>
           </div>
           <div class="box-content">
             <div class="card-content">
-              <div class="box-header">{{ _shortName(elem.Przedmiot) }}</div>
-              <div class="box-name">{{ elem.Prowadzacy }}</div>
-              <div>Forma {{ elem.Forma_zajec_nazwa }}</div>
-              <div>Sala {{ elem.Sala }}</div>
+              <div class="box-header">{{ _shortName(elem.subject) }}</div>
+              <div class="box-name">{{ elem.teacher }}</div>
+              <div>Forma {{ elem.formName }}</div>
+              <div>Sala {{ elem.room }}</div>
             </div>
             <!-- <div class="card-actions">
               <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
