@@ -340,6 +340,11 @@
         if(this.$.datePickerOuter.classList.contains('open')){
           // -1 bo zwraca 1-7
           var weekDay = this.user.currentDate.getDay()-1;
+          // wyjatek na niedziele
+
+          if(weekDay==-1)
+            weekDay=6;
+
           this.$.swipePages.select(weekDay);
 
           this.$.datePickerOuter.style.height = "";
