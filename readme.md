@@ -1,19 +1,34 @@
 # WhyZut
 
-## Założenie
+## Funkcjonalności
 
-Aplikacja pobiera plan zajęć bezpośrednio z zutowskiego e-dziekanatu (wymagane jest podanie loginu i hasła). Przedstawie je w czytelnej formie. Sprawdza co jakiś czas czy plan się nie zmienił, jeśli tak to wyświetla powiadomienie o tym. Można dodać własne zajecia (np. wf lub angielski). Wszystkie konflikty zajęć zostaną wyświetlone. Będzię można też sprawdzić plan poszczególnych prowadzących z którymi ma się zajęcia. Aplikacja będzie w stanie porównać plan prowadzącego i studenta a następnie wyświetlić wspólne godziny wolne lub kiedy student może odrobić zajęcia. Wyświetlane będą też powiadomienia z wizut i zmiany w planie.
+- pobiera plan zajęć bezpośrednio z e-dziekanat.zut.edu.pl
+- przechowuje login i hasło, nie trzeba wpisywać go za każdym razem
+- pobrany plan zajęć zapisywany jest offline
+- jednym przyciskiem można pobrać najnowszy plan
+- plan wyświetlany jest tygodniami, z podziałem na konkretny dzień
+- możliwość wyboru konkretnego dnia z kalendarza
+
+## Zrzuty
+![screen_1](https://lh3.googleusercontent.com/dMmLzLBubtyDyp8RO1ixeVK0_mPGfm1zsklMZJsrw3VnHWHRz6IkLTNpQ50i2x1M2Q-QEAc9Fqrg=w382-h678-no)
+
+![screen_2](https://lh3.googleusercontent.com/scMJAQFMw0sQ1ZtXMWzl3vn_4fMRVXtQomUrT3oDKNRcv3LnCEElZIZl4rFcnIwL3btYLM0OdjpA=w382-h678-no)
+
+![screen_3](https://lh3.googleusercontent.com/i_sWTaOKbaBqftTYPHQw5yGSOjzP9LKFU1L5kje6ABKbWQ62RLNgTVmjbzItX-srPyb3ZPer5dew=w382-h678-no)
+
+![screen_4](https://lh3.googleusercontent.com/V-XCuWinOpIS3gI1buw2yy4_IUd37opX-iZHO-KZJZSyOUtQsRrsDfRyTKkShxnCacfBGEC0AMsq=w382-h678-no)
+
+![screen_4](https://lh3.googleusercontent.com/aKC9La-81zIZ4kOMKcPtQnT_rqEYXgZKYPwlteVJYPVKHNLOGikay0IOCSKRZiIQe5UDG3RIlWDF=w382-h678-no)
 
 ## TO DO
 
-- ~~zainstalować i skonfigurować phonegap (postawić apke testową)~~
-
-- ~~napisac algorytm ktory bedzie wchodzil na edziekanat i pobieral plan zajec na wybrany okres czasu~~
-  - ~~jakies webview ktore bedzie sie logowalo na edziekanat a nastepnie przechodzilo na plan zajec~~
-  - ~~pobierac icalc~~
-
-- zaszyfrować dane do logowania w bazie danych aplikacji
-
-- ~~wdrozyć polymera z material design~~
-
-- zrobic tez wersje light gdzie polymer zostanie zastapiony jakims prostym frameworkiem (moze byc wiele wersji np. androidowa, ios, windowsowa z mozliwoscia wyboru)
+- dodawanie własnych powtarzalnych zajęć (np. wf)
+- ukrywanie zajęć ze względu na przedmiot, forme itd.
+- dodanie sekcji ogłoszenia
+- wyświetlenie zmienionych zajęć po pobraniu nowszego planu
+- napisanie "background task" do aktualizowania planu np. raz na godzine
+- wyświetlanie powiadomień o zbliżających się zajęciach
+- dodanie splash screena oraz ikon
+- dodać polskie nazwy miesięcy w kalendarzu
+- push notification
+- angielska wersja readme
