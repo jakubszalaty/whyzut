@@ -28,7 +28,7 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
 
-<link rel="import" href="../../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
+<!-- <link rel="import" href="../../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html"> -->
 
 <!-- custom elements -->
 <link rel="import" href="../app-login-form/app-login-form.html">
@@ -127,6 +127,9 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: all;
     }
+    #swipePages.disabled-anim > *{
+      transition: none!important;
+    }
 
     </style>
 
@@ -150,7 +153,7 @@
     <paper-button onclick="updatedData.toggle()" class="yellow-button">Ok</paper-button>
   </paper-toast>
 
-  <app-scrollpos-control selected="{{user.activeSelected}}"></app-scrollpos-control>
+  <!-- <app-scrollpos-control selected="{{activeSelected}}"></app-scrollpos-control> -->
   <app-drawer-layout>
 
     <app-drawer id="drawer" swipe-open>
@@ -187,8 +190,8 @@
       <app-header-layout>
 
 
-        <!-- <app-header condenses effects="waterfall" fixed> -->
-        <app-header fixed>
+        <app-header condenses effects="waterfall" fixed>
+        <!-- <app-header fixed> -->
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div main-title> [[title]]  </div>
@@ -208,7 +211,7 @@
 
           </app-toolbar>
 
-          <paper-tabs sticky selected="{{user.activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
+          <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
             <paper-tab>Pon</paper-tab>
             <paper-tab>Wt</paper-tab>
             <paper-tab>Śr</paper-tab>
@@ -219,40 +222,40 @@
           </paper-tabs>
 
           <app-toolbar id="datePickerOuter">
-            <paper-date-picker locale="pl" date={{user.currentDate}}></paper-date-picker>
+            <paper-date-picker date={{currentDate}}></paper-date-picker>
           </app-toolbar>
         </app-header>
 
 
         <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
-          <iron-swipeable-pages id="swipePages" selected="{{user.activeSelected}}" class="content" route="/main" style="padding:0;">
+          <iron-swipeable-pages id="swipePages" no-cycle="true" selected="{{activeSelected}}" class="content" route="/main" style="padding:0;">
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="0" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="0" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="1" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="1" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="2" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="2" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="3" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="3" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="4" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="4" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="5" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="5" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
             <iron-swipeable-page>
-              <paper-card-repeater offset-start="6" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+              <paper-card-repeater offset-start="6" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
             </iron-swipeable-page>
 
           </iron-swipeable-pages>
@@ -282,6 +285,12 @@
         route: {
           type: Object
         },
+        activeSelected: {
+          type: Number,
+          value: function(){
+            return new Date().getDay()-1;
+          }
+        },
         range:{
           type: String,
           value: 'isoweek'
@@ -298,7 +307,7 @@
 
       observers: [
         '_routePathChanged(route.path)',
-        '_dateChanged(user.currentDate)'
+        '_dateChanged(currentDate)'
       ],
 
       _routePathChanged: function(path) {
@@ -337,18 +346,24 @@
         }
       },
       _dateChanged: function(){
-        if(this.$.datePickerOuter.classList.contains('open')){
+        var self = this;
+        if(self.$.datePickerOuter.classList.contains('open')){
           // -1 bo zwraca 1-7
-          var weekDay = this.user.currentDate.getDay()-1;
+          var weekDay = self.currentDate.getDay()-1;
           // wyjatek na niedziele
 
           if(weekDay==-1)
             weekDay=6;
 
-          this.$.swipePages.select(weekDay);
 
-          this.$.datePickerOuter.style.height = "";
-          this.$.mainPages.classList.remove('shadow');
+          self.$.datePickerOuter.style.height = "";
+          self.$.mainPages.classList.remove('shadow');
+          self.$.swipePages.classList.add('disabled-anim');
+          self.$.swipePages.select(weekDay);
+
+          setTimeout(function(){
+            self.$.swipePages.classList.remove('disabled-anim');
+          },10);
 
         }
       },
@@ -360,8 +375,8 @@
           name: "Niezalogowany",
           logged: false,
           lastCheck: null,
-          currentDate: new Date(),
-          activeSelected: new Date().getDay()-1
+          // currentDate: new Date(),
+          // activeSelected: new Date().getDay()-1
         };
       }
     });

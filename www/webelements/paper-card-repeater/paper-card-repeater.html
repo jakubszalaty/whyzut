@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <dom-module id="paper-card-repeater">
   <template>
     <style>
@@ -58,7 +60,18 @@
       }
       .buttons paper-button{
         margin:0;
-
+      }
+      #freeDay{
+        color: rgba(33, 33, 33, 0.17);
+        text-align: center;
+      }
+      #freeDay iron-icon{
+        width: 50vh;
+        height: 50vh;
+      }
+      #freeDay p{
+        font-size: 60px;
+        margin: 0;
       }
     </style>
 
@@ -76,7 +89,13 @@
       <!-- <paper-button raised class="white" on-tap="nextOffset" style="min-width: auto;"> > </paper-button> -->
     </div>
 
-    <div class="paper-card-outer">
+    <div id="paperCardOuter">
+      <div id="freeDay" hidden$="{{visibleElements}}">
+
+        <iron-icon icon="social:mood"></iron-icon>
+        <p>Brak zajęć</p>
+
+      </div>
       <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd,date)}}" items="{{elements}}" as="elem">
         <paper-card>
 
@@ -140,6 +159,17 @@
           type: Object,
           value: new Date()
         }
+      },
+      observers: [
+        '_elementsCountChange(range,offsetStart,offsetEnd,date)',
+      ],
+      _elementsCountChange: function () {
+        var self = this;
+        clearTimeout(self.timeout);
+        // delay bo musza sie wyrenderowac elementy
+        self.timeout = setTimeout(function(){
+          self.visibleElements = !!(self.$.paperCardOuter.querySelectorAll('paper-card').length);
+        },200);
       },
       _shortName: function (name) {
         if(name.length < 30)
