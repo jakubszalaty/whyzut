@@ -25,9 +25,15 @@
 
 <link rel="import" href="../../bower_components/paper-date-picker/paper-date-picker.html">
 
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
+
 <!-- custom elements -->
 <link rel="import" href="../app-login-form/app-login-form.html">
 <link rel="import" href="../paper-card-repeater/paper-card-repeater.html">
+<link rel="import" href="../iron-swipeable-page/iron-swipeable-page.html">
 
 <dom-module id="main-app">
 
@@ -144,6 +150,7 @@
     <paper-button onclick="updatedData.toggle()" class="yellow-button">Ok</paper-button>
   </paper-toast>
 
+  <app-scrollpos-control selected="{{user.activeSelected}}"></app-scrollpos-control>
   <app-drawer-layout>
 
     <app-drawer id="drawer" swipe-open>
@@ -180,37 +187,75 @@
       <app-header-layout>
 
 
-        <app-header reveals effects="waterfall">
+        <!-- <app-header condenses effects="waterfall" fixed> -->
+        <app-header fixed>
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div main-title> [[title]]  </div>
 
-            <template is="dom-if" if="{{user.logged}}">
-              <div class="last-check"> [[user.lastCheck]] </div>
-              <paper-icon-button icon="refresh" on-tap="_refreshData"></paper-icon-button>
-              <paper-icon-button icon="today" on-tap="_toggleDatapicker"></paper-icon-button>
-              <paper-menu-button horizontal-align="right">
+
+            <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[user.lastCheck]] </div>
+            <paper-icon-button icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
+            <paper-icon-button icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_toggleDatapicker"></paper-icon-button>
+
+              <!-- <paper-menu-button horizontal-align="right">
                 <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
                 <paper-menu class="dropdown-content" selected="{{range}}" attr-for-selected="range">
                   <paper-item range="day">Dzień</paper-item>
-                  <paper-item range="week">Tydzień</paper-item>
+                  <paper-item range="isoweek">Tydzień</paper-item>
                 </paper-menu>
-              </paper-menu-button>
-            </template>
+              </paper-menu-button> -->
 
           </app-toolbar>
+
+          <paper-tabs sticky selected="{{user.activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
+            <paper-tab>Pon</paper-tab>
+            <paper-tab>Wt</paper-tab>
+            <paper-tab>Śr</paper-tab>
+            <paper-tab>Czw</paper-tab>
+            <paper-tab>Pt</paper-tab>
+            <paper-tab>Sb</paper-tab>
+            <paper-tab>Nd</paper-tab>
+          </paper-tabs>
+
           <app-toolbar id="datePickerOuter">
-            <paper-date-picker locale="pl" date={{currentDate}}></paper-date-picker>
+            <paper-date-picker locale="pl" date={{user.currentDate}}></paper-date-picker>
           </app-toolbar>
         </app-header>
 
 
         <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
-          <div class="content" route="/main">
-            <paper-card-repeater range="{{range}}" date="{{currentDate}}"></paper-card-repeater>
+          <iron-swipeable-pages id="swipePages" selected="{{user.activeSelected}}" class="content" route="/main" style="padding:0;">
 
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="0" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
 
-          </div>
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="1" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
+
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="2" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
+
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="3" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
+
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="4" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
+
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="5" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
+
+            <iron-swipeable-page>
+              <paper-card-repeater offset-start="6" range="isoweek" date="{{user.currentDate}}"></paper-card-repeater>
+            </iron-swipeable-page>
+
+          </iron-swipeable-pages>
 
           <div class="content" route="/settings">
             <div class="setting-content">
@@ -236,6 +281,10 @@
       properties: {
         route: {
           type: Object
+        },
+        range:{
+          type: String,
+          value: 'isoweek'
         }
       },
 
@@ -249,10 +298,11 @@
 
       observers: [
         '_routePathChanged(route.path)',
-        '_dateChanged(currentDate)'
+        '_dateChanged(user.currentDate)'
       ],
 
       _routePathChanged: function(path) {
+
         if (path == '/main') {
           this.set('title','Plan');
         }
@@ -288,15 +338,25 @@
       },
       _dateChanged: function(){
         if(this.$.datePickerOuter.classList.contains('open')){
+          // -1 bo zwraca 1-7
+          var weekDay = this.user.currentDate.getDay()-1;
+          this.$.swipePages.select(weekDay);
+
           this.$.datePickerOuter.style.height = "";
           this.$.mainPages.classList.remove('shadow');
+
         }
+      },
+      _isVisibleSchedule: function(logged, path){
+        return (logged && path == '/main');
       },
       initializeDefaultUserInfo: function(){
         this.user = {
           name: "Niezalogowany",
           logged: false,
-          lastCheck: null
+          lastCheck: null,
+          currentDate: new Date(),
+          activeSelected: new Date().getDay()-1
         };
       }
     });

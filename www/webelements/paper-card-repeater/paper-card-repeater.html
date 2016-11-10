@@ -8,6 +8,7 @@
       :host {
         display: block;
         position: relative;
+        margin: 0 8px;
       }
 
       paper-card { @apply(--layout-horizontal); }
@@ -80,7 +81,11 @@
         <paper-card>
 
           <div class="box-info">
-            <div class="box-info-text">{{ elem.date }} {{ elem.dayName }} {{ elem.startTime }}</div>
+            <div class="box-info-text">
+              <div>{{ elem.date }}</div>
+              <div>{{ elem.dayName }}</div>
+              <div>{{ elem.startTime }}</div>
+            </div>
           </div>
           <div class="box-content">
             <div class="card-content">
@@ -88,6 +93,7 @@
               <div class="box-name">{{ elem.teacher }}</div>
               <div>Forma {{ elem.formName }}</div>
               <div>Sala {{ elem.room }}</div>
+              <div>{{ elem.building }} </div>
             </div>
             <!-- <div class="card-actions">
               <paper-icon-button class="box-icon" icon="star"></paper-icon-button>
@@ -128,7 +134,7 @@
         },
         range: {
           type: String,
-          value: 'week'
+          value: 'isoweek'
         },
         date:{
           type: Object,
@@ -155,7 +161,7 @@
         this.offsetEnd = 0;
       },
       setRangeWeek: function(){
-        this.range = "week";
+        this.range = "isoweek";
         this.offsetStart = 0;
         this.offsetEnd = 0;
       },
@@ -176,16 +182,15 @@
 
           return function(elem) {
 
-            var date = elem.Data_zajac.split(' ');
+            var date = elem.date;
 
-            date = date[0] + elem.Od;
+            date = date + ' ' + elem.startTime;
 
             momentDate = moment(date, "DD.MM.YYYY HH:mm");
 
-             // moment().startOf('day').add(0, 'day');
-            var start = moment(selectedDate).startOf(range).add(offsetStart, range);
-
-            var end = moment(selectedDate).endOf(range).add(offsetEnd, range);
+            var start = moment(selectedDate).clone().startOf(range).add(offsetStart, 'day');
+            var end = start.clone().endOf('day');
+            // var end = moment(selectedDate).endOf(range).add(offsetEnd, range);
             return momentDate.isBetween( start, end );
 
           };

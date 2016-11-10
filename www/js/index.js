@@ -52,7 +52,6 @@
       StatusBar.backgroundColorByHexString('#3f51b5');
 
     },
-
     updateUserData: function(){
 
       $('.result2').html('');
@@ -117,8 +116,8 @@
             //   keys.push($(this).text());
             // });
 
-            keys = ["Data_zajac", "Od", "Do", "Przedmiot", "Prowadzacy", "Sala", "Adres_budynku", "Forma_zajec_nazwa", "Forma_zalicz"];
-
+            // keys = ["Data_zajac", "Od", "Do", "Przedmiot", "Prowadzacy", "Sala", "Adres_budynku", "Forma_zajec_nazwa", "Forma_zalicz"];
+            keys = ["date", "startTime", "endTime", "subject", "teacher", "room", "building", "formName", "examForm"];
 
             var elements = [];
 
@@ -132,9 +131,11 @@
                 obj[keys[index]] = $(this).text();
 
               });
+              var date = obj.date.split(' ');
+              obj.date = date[0];
+              obj.dayName = date[1];
 
             });
-
             $('paper-card-repeater').prop('elements',elements);
 
             document.querySelector('main-app').set('user.logged', true);
