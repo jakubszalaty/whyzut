@@ -1,8 +1,14 @@
 # WhyZut
 
+## Opis
+
+Aplikacja dostarcza w szybki i prosty sposób aktualny plan zajęć ze strony https://edziekanat.zut.edu.pl/ .
+
+**Już nigdy więcej nie zaskoczy Cię nagła zmiana planu zajęć.**
+
 ## Funkcjonalności
 
-- pobiera plan zajęć bezpośrednio z e-dziekanat.zut.edu.pl
+- pobiera plan zajęć bezpośrednio z https://edziekanat.zut.edu.pl/
 - przechowuje login i hasło, nie trzeba wpisywać go za każdym razem
 - pobrany plan zajęć zapisywany jest offline
 - jednym przyciskiem można pobrać najnowszy plan
@@ -10,6 +16,7 @@
 - możliwość wyboru konkretnego dnia z kalendarza
 
 ## Zrzuty
+
 ![screen_1](https://lh3.googleusercontent.com/dMmLzLBubtyDyp8RO1ixeVK0_mPGfm1zsklMZJsrw3VnHWHRz6IkLTNpQ50i2x1M2Q-QEAc9Fqrg=w382-h678-no)
 
 ![screen_2](https://lh3.googleusercontent.com/scMJAQFMw0sQ1ZtXMWzl3vn_4fMRVXtQomUrT3oDKNRcv3LnCEElZIZl4rFcnIwL3btYLM0OdjpA=w382-h678-no)
@@ -19,6 +26,12 @@
 ![screen_4](https://lh3.googleusercontent.com/V-XCuWinOpIS3gI1buw2yy4_IUd37opX-iZHO-KZJZSyOUtQsRrsDfRyTKkShxnCacfBGEC0AMsq=w382-h678-no)
 
 ![screen_4](https://lh3.googleusercontent.com/aKC9La-81zIZ4kOMKcPtQnT_rqEYXgZKYPwlteVJYPVKHNLOGikay0IOCSKRZiIQe5UDG3RIlWDF=w382-h678-no)
+
+## Technologie
+
+- html, css, javascript
+- phonegap - http://phonegap.com/
+- polymer 1.0 - http://polymer-project.org/1.0/
 
 ## TO DO
 
@@ -31,4 +44,6 @@
 - dodanie splash screena oraz ikon
 - dodać polskie nazwy miesięcy w kalendarzu
 - push notification
+- dodanie zakładki z ocenami
+- dodanie zakładki o mnie
 - angielska wersja readme
