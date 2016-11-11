@@ -129,6 +129,9 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: all;
     }
+    #swipePages{
+      min-height: calc(100vh - 64px);
+    }
     #swipePages.disabled-anim > *{
       transition: none!important;
     }
@@ -198,7 +201,6 @@
 
 
         <app-header condenses effects="waterfall" fixed>
-        <!-- <app-header fixed> -->
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div main-title> [[title]]  </div>
@@ -207,15 +209,6 @@
             <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[user.lastCheck]] </div>
             <paper-icon-button icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
             <paper-icon-button icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_toggleDatapicker"></paper-icon-button>
-
-              <!-- <paper-menu-button horizontal-align="right">
-                <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
-                <paper-menu class="dropdown-content" selected="{{range}}" attr-for-selected="range">
-                  <paper-item range="day">Dzień</paper-item>
-                  <paper-item range="isoweek">Tydzień</paper-item>
-                </paper-menu>
-              </paper-menu-button> -->
-
           </app-toolbar>
 
           <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
@@ -241,42 +234,53 @@
 
 
         <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
-          <iron-swipeable-pages id="swipePages" no-cycle="true" selected="{{activeSelected}}" class="content" route="/main" style="padding:0;">
+          <div class="content" route="/main" style="padding:0;">
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="0" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="1" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
+            <iron-swipeable-pages id="swipePages" no-cycle="true" selected="{{activeSelected}}">
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="2" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="0" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="3" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="1" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="4" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="2" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="5" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="3" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
 
-            <iron-swipeable-page>
-              <paper-card-repeater offset-start="6" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-            </iron-swipeable-page>
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="4" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
 
-          </iron-swipeable-pages>
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="5" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
+
+              <iron-swipeable-page>
+                <paper-card-repeater offset-start="6" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+              </iron-swipeable-page>
+            </iron-swipeable-pages>
+
+          </div>
 
           <div class="content" route="/settings">
+
             <div class="setting-content">
               <app-login-form></app-login-form>
             </div>
+
+          </div>
+
+          <div class="content" route="/about">
+
+
 
           </div>
 
