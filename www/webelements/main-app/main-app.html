@@ -28,7 +28,12 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
 
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <!-- <link rel="import" href="../../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html"> -->
 
@@ -128,35 +133,146 @@
         z-index: 8;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: all;
-    }
-    #swipePages{
-      min-height: calc(100vh - 64px);
-    }
-    #swipePages.disabled-anim > *{
-      transition: none!important;
-    }
-    #progressBar{
-      display: block;
-      width: 100%;
-      height: 3px;
-    }
+      }
+      #swipePages{
+        min-height: calc(100vh - 64px);
+      }
+      #swipePages.disabled-anim > *{
+        transition: none!important;
+      }
+      .progress-bar{
+        display: block;
+        width: 100%;
+        height: 3px;
+      }
+
+      /*about*/
+      .about {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        background-color: #eee;
+      }
+
+      .about app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        color: #fff;
+        background-color: #3f51b5;
+        /*--app-header-background-front-layer: {
+          background-image: url(/img/js.jpg);
+        };*/
+      }
+
+      .about paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .about paper-fab {
+        position: absolute;
+        right: 16px;
+        top: 248px;
+        will-change: transform;
+        transition: 0.1s -webkit-transform;
+        transition: 0.1s transform;
+      }
+
+      .about paper-fab.shrink-to-hidden {
+        -webkit-transform: scale3d(0, 0, 0);
+        transform: scale3d(0, 0, 0);
+      }
+
+      .about app-toolbar.middle {
+        height: 120px;
+      }
+
+      .about app-toolbar.bottom {
+        height: 92px;
+      }
+
+      .about .sample-content {
+        padding-top: 276px;
+      }
+
+      .about [title] {
+        margin-left: 64px;
+        font-size: 32px;
+        font-weight: 300;
+      }
+
+      .about [condensed-title] {
+        margin-left: 20px;
+        font-weight: 300;
+      }
+
+      .about #itemsList{
+        @apply(--layout-flex);
+        height: calc(100vh - 276px);
+      }
+      .about .item-outer{
+        position: relative!important;
+      }
+      .about .item {
+        @apply(--layout-horizontal);
+        cursor: pointer;
+        padding: 16px 22px;
+        border-bottom: 1px solid #DDD;
+      }
+
+      .about .item:focus,
+      .about .item.selected:focus {
+        outline: 0;
+        background-color: #ddd;
+      }
+
+      .about .about .avatar {
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        background-color: #ddd;
+      }
+
+      .about .pad {
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+        padding: 0 16px;
+      }
+
+      .about .primary {
+        font-size: 16px;
+      }
+
+      .about .secondary {
+        font-size: 14px;
+      }
+
+      .about .dim {
+        color: gray;
+      }
+
+
+      .about iron-list {
+        @apply(--layout-flex);
+      }
+
 
     </style>
 
     <iron-localstorage
-      name="userInfo"
-      value="{{user}}"
-      on-iron-localstorage-load-empty="initializeDefaultUserInfo"
-      ></iron-localstorage>
+    name="userInfo"
+    value="{{user}}"
+    on-iron-localstorage-load-empty="initializeDefaultUserInfo"
+    ></iron-localstorage>
 
 
 
     <app-location use-hash-as-path route="{{route}}"></app-location>
     <app-route
-      route="{{route}}"
-      pattern="/:page"
-      data="{{routeData}}"
-      tail="{{subroute}}">
+    route="{{route}}"
+    pattern="/:page"
+    data="{{routeData}}"
+    tail="{{subroute}}">
   </app-route>
 
   <paper-toast class="fit-bottom" id="updatedData" duration="0" text="[[toastText]]">
@@ -170,72 +286,73 @@
       <app-header-layout has-scrolling-region>
 
         <app-header fixed>
-            <app-toolbar style="height: 128px;"></app-toolbar>
+          <app-toolbar style="height: 128px;"></app-toolbar>
 
-            <app-toolbar style="height: 64px;">
-              <div class="drawer-container">
-                <div class="info">
-                  <div class="name">Witaj, {{user.name}}!</div>
-                </div>
+          <app-toolbar style="height: 64px;">
+            <div class="drawer-container">
+              <div class="info">
+                <div class="name">Witaj, {{user.name}}!</div>
               </div>
+            </div>
+          </app-toolbar>
+
+        </app-header>
+
+        <!-- nav menu -->
+        <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
+          <paper-item route="/main" disabled="[[!user.logged]]">
+            <paper-icon-button icon="list"></paper-icon-button>
+            Plan
+          </paper-item>
+          <paper-item route="/settings">
+            <paper-icon-button icon="settings"></paper-icon-button>
+            Ustawienia
+          </paper-item>
+          <paper-item route="/about">
+            <paper-icon-button icon="info"></paper-icon-button>
+            O mnie
+          </paper-item>
+        </paper-listbox>
+
+      </app-header-layout>
+    </app-drawer>
+
+    <app-header-layout>
+      <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
+        <div route="/main" >
+
+          <app-header condenses effects="waterfall" fixed>
+            <app-toolbar>
+              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+              <div main-title> Plan  </div>
+
+
+              <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[user.lastCheck]] </div>
+              <paper-icon-button icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
+              <paper-icon-button icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_toggleDatapicker"></paper-icon-button>
             </app-toolbar>
 
-        </app-header>
+            <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
+              <paper-tab>Pon</paper-tab>
+              <paper-tab>Wt</paper-tab>
+              <paper-tab>Śr</paper-tab>
+              <paper-tab>Czw</paper-tab>
+              <paper-tab>Pt</paper-tab>
+              <paper-tab>Sb</paper-tab>
+              <paper-tab>Nd</paper-tab>
+            </paper-tabs>
 
-          <!-- nav menu -->
-          <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
-            <paper-item route="/main" disabled="[[!user.logged]]">
-              <paper-icon-button icon="list"></paper-icon-button>
-              Plan
-            </paper-item>
-            <paper-item route="/settings">
-              <paper-icon-button icon="settings"></paper-icon-button>
-              Ustawienia
-            </paper-item>
-          </paper-listbox>
-
-        </app-header-layout>
-      </app-drawer>
-
-      <app-header-layout>
-
-
-        <app-header condenses effects="waterfall" fixed>
-          <app-toolbar>
-            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title> [[title]]  </div>
-
-
-            <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[user.lastCheck]] </div>
-            <paper-icon-button icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
-            <paper-icon-button icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_toggleDatapicker"></paper-icon-button>
-          </app-toolbar>
-
-          <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
-            <paper-tab>Pon</paper-tab>
-            <paper-tab>Wt</paper-tab>
-            <paper-tab>Śr</paper-tab>
-            <paper-tab>Czw</paper-tab>
-            <paper-tab>Pt</paper-tab>
-            <paper-tab>Sb</paper-tab>
-            <paper-tab>Nd</paper-tab>
-          </paper-tabs>
-
-          <paper-progress id="progressBar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
+            <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
 
 
 
-          <app-toolbar id="datePickerOuter">
-            <paper-date-picker date={{currentDate}}></paper-date-picker>
-          </app-toolbar>
+            <app-toolbar id="datePickerOuter">
+              <paper-date-picker date={{currentDate}}></paper-date-picker>
+            </app-toolbar>
 
 
-        </app-header>
-
-
-        <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
-          <div class="content" route="/main" style="padding:0;">
-
+          </app-header>
+          <div class="content" style="padding:0;">
 
             <iron-swipeable-pages id="swipePages" no-cycle="true" selected="{{activeSelected}}">
 
@@ -267,108 +384,174 @@
                 <paper-card-repeater offset-start="6" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
               </iron-swipeable-page>
             </iron-swipeable-pages>
-
           </div>
+        </div>
 
-          <div class="content" route="/settings">
+        <div route="/settings">
 
+          <app-header condenses effects="waterfall" fixed>
+            <app-toolbar>
+              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+              <div main-title> Ustawienia  </div>
+            </app-toolbar>
+            <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
+
+          </app-header>
+
+          <div class="content">
             <div class="setting-content">
               <app-login-form></app-login-form>
             </div>
 
           </div>
-
-          <div class="content" route="/about">
-
+        </div>
 
 
+        <div class="about" route="/about">
+
+          <app-header effects="waterfall resize-title blend-background parallax-background" condenses reveals>
+            <app-toolbar>
+              <!-- <paper-icon-button icon="arrow-back"></paper-icon-button> -->
+              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+              <div condensed-title>Jakub Szalaty</div>
+              <!-- <paper-icon-button icon="create"></paper-icon-button> -->
+              <!-- <paper-icon-button icon="more-vert"></paper-icon-button> -->
+            </app-toolbar>
+            <app-toolbar class="middle"></app-toolbar>
+
+            <app-toolbar class="bottom">
+              <div main-title>Jakub Szalaty</div>
+
+            </app-toolbar>
+          </app-header>
+          <!-- <paper-fab icon="star"></paper-fab> -->
+
+          <div class="sample-content">
+            <iron-list id="itemsList" items="[[data]]" selected-items="{{selectedItems}}" selection-enabled multi-selection>
+
+              <div class="item-outer">
+                <div class="item">
+                  <div class="pad">
+
+                    <a onclick="window.open('mailto:jakub.szalaty@gmail.com', '_system');">
+                      <div class="primary">
+                        email
+                      </div>
+                      <div class="secondary dim"> jakub.szalaty@gmail.com </div>
+                    </a>
+
+                  </div>
+                </div>
+                <div class="border"></div>
+              </div>
+
+              <div class="item-outer">
+                <div class="item">
+                  <div class="pad">
+                    <a onclick="window.open('https://github.com/nnaisur/whyzut', '_system');">
+
+                      <div class="primary">
+                        github
+                      </div>
+                      <div class="secondary dim">https://github.com/nnaisur/whyzut</div>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="border"></div>
+              </div>
+
+            </iron-list>
           </div>
 
-        </neon-animated-pages>
+        </div>
 
-      </app-header-layout>
 
-    </app-drawer-layout>
+      </neon-animated-pages>
 
-  </template>
+    </app-header-layout>
 
-  <script>
+  </app-drawer-layout>
 
-    Polymer({
+</template>
 
-      is: 'main-app',
+<script>
 
-      properties: {
-        route: {
-          type: Object
-        },
-        activeSelected: {
-          type: Number,
-          value: function(){
-            return new Date().getDay()-1;
-          }
-        },
-        range:{
-          type: String,
-          value: 'isoweek'
-        },
-        lodingData:{
-          type: Boolean,
-          value: false
+  Polymer({
+
+    is: 'main-app',
+
+    properties: {
+      route: {
+        type: Object
+      },
+      activeSelected: {
+        type: Number,
+        value: function(){
+          return new Date().getDay()-1;
         }
       },
-
-      attached: function(){
-        if(!this.user.logged)
-          return this.set('route.path','/settings');
-
-        if(!this.route.path)
-          return this.set('route.path','/main');
+      range:{
+        type: String,
+        value: 'isoweek'
       },
+      lodingData:{
+        type: Boolean,
+        value: false
+      }
+    },
 
-      observers: [
-        '_routePathChanged(route.path)',
-        '_dateChanged(currentDate)'
-      ],
+    attached: function(){
+      if(!this.user.logged)
+        return this.set('route.path','/settings');
 
-      _routePathChanged: function(path) {
+      if(!this.route.path)
+        return this.set('route.path','/main');
+    },
 
-        if (path == '/main') {
-          this.set('title','Plan');
-        }
+    observers: [
+    '_routePathChanged(route.path)',
+    '_dateChanged(currentDate)'
+    ],
 
-        if (path == '/settings') {
-          this.set('title','Ustawienia');
-        }
+    _routePathChanged: function(path) {
 
-      },
-      _drawerSelected: function() {
-        if (!this.$.drawer.persistent) this.$.drawer.close();
-      },
+      if (path == '/main') {
+        this.set('title','Plan');
+      }
 
-      _refreshData: function() {
-        app.updateUserData();
-      },
-      toastMsg: function(text){
-        if(!text)
-          return;
-        this.set('toastText',text);
-        this.$.updatedData.open();
-      },
-      _toggleDatapicker: function(){
+      if (path == '/settings') {
+        this.set('title','Ustawienia');
+      }
 
-        if(this.$.datePickerOuter.classList.toggle('open')){
-          var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
-          this.$.datePickerOuter.style.height = height + 'px';
-          this.$.mainPages.classList.add('shadow');
-        }else{
-          this.$.datePickerOuter.style.height = "";
-          this.$.mainPages.classList.remove('shadow');
-        }
-      },
-      _dateChanged: function(){
-        var self = this;
-        if(self.$.datePickerOuter.classList.contains('open')){
+    },
+    _drawerSelected: function() {
+      if (!this.$.drawer.persistent) this.$.drawer.close();
+    },
+
+    _refreshData: function() {
+      app.updateUserData();
+    },
+    toastMsg: function(text){
+      if(!text)
+        return;
+      this.set('toastText',text);
+      this.$.updatedData.open();
+    },
+    _toggleDatapicker: function(){
+
+      if(this.$.datePickerOuter.classList.toggle('open')){
+        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
+        this.$.datePickerOuter.style.height = height + 'px';
+        this.$.mainPages.classList.add('shadow');
+      }else{
+        this.$.datePickerOuter.style.height = "";
+        this.$.mainPages.classList.remove('shadow');
+      }
+    },
+    _dateChanged: function(){
+      var self = this;
+      if(self.$.datePickerOuter.classList.contains('open')){
           // -1 bo zwraca 1-7
           var weekDay = self.currentDate.getDay()-1;
           // wyjatek na niedziele
