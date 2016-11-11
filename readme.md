@@ -6,6 +6,11 @@ Aplikacja dostarcza w szybki i prosty sposób aktualny plan zajęć ze strony ht
 
 **Już nigdy więcej nie zaskoczy Cię nagła zmiana planu zajęć.**
 
+Aplikacja dostępna tylko pod [linkiem](https://build.phonegap.com/apps/2350253/share).
+
+*Dostępne są tylko wersje na Androida i WindowsPhone(nie testowana).*
+
+
 ## Funkcjonalności
 
 - pobiera plan zajęć bezpośrednio z https://edziekanat.zut.edu.pl/
