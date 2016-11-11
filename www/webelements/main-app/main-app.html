@@ -52,6 +52,8 @@
         padding: 8px;
         min-height: calc(100vh - 64px);
         position: relative;
+        /*szybki fix*/
+        z-index: -1;
       }
       .content paper-card{
         margin-bottom: 8px;
@@ -118,10 +120,10 @@
         will-change: height;
       }
 
-      #mainPages.shadow {
+      #swipePages.shadow {
         overflow: hidden;
       }
-      #mainPages.shadow:after {
+      #swipePages.shadow:after {
         content: "";
         position: absolute;
         top: 0;
@@ -543,10 +545,10 @@
       if(this.$.datePickerOuter.classList.toggle('open')){
         var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
         this.$.datePickerOuter.style.height = height + 'px';
-        this.$.mainPages.classList.add('shadow');
+        this.$.swipePages.classList.add('shadow');
       }else{
         this.$.datePickerOuter.style.height = "";
-        this.$.mainPages.classList.remove('shadow');
+        this.$.swipePages.classList.remove('shadow');
       }
     },
     _dateChanged: function(){
@@ -561,7 +563,7 @@
 
 
           self.$.datePickerOuter.style.height = "";
-          self.$.mainPages.classList.remove('shadow');
+          self.$.swipePages.classList.remove('shadow');
           self.$.swipePages.classList.add('disabled-anim');
           self.$.swipePages.select(weekDay);
 
