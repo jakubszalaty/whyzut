@@ -47,3 +47,7 @@ Aplikacja dostarcza w szybki i prosty sposób aktualny plan zajęć ze strony ht
 - dodanie zakładki z ocenami
 - dodanie zakładki o mnie
 - angielska wersja readme
+
+## Feedback
+
+Wszystkie błędy, propozycje nowych funkcji, opinie, itd., są mile widziane. [Dodaj](https://github.com/nnaisur/whyzut/issues).
