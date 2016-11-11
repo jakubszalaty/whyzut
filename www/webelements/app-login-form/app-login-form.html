@@ -29,6 +29,7 @@
     <iron-localstorage
         name="userData"
         value="{{data}}"
+        on-iron-localstorage-load-empty="initializeDefaultUserData"
         ></iron-localstorage>
 
     <iron-localstorage
