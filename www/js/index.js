@@ -39,7 +39,7 @@
       var time;
       var eventsList = [];
       connect.addEventListener('click',function(){
-        app.updateUserData();
+        app.updateUserData(true);
       },true);
 
 
@@ -52,9 +52,10 @@
       StatusBar.backgroundColorByHexString('#3f51b5');
 
     },
-    updateUserData: function(){
-
-      $('.result2').html('');
+    updateUserData: function(moveToSchedule){
+      // $('.result2').html('');
+      var mainApp = document.querySelector('main-app');
+      mainApp.set('lodingData', true);
 
       $.get('https://edziekanat.zut.edu.pl/WU/PodzGodzin.aspx', function( data ) {
         console.log('Pobrano strone logowania');
@@ -138,11 +139,23 @@
             });
             $('paper-card-repeater').prop('elements',elements);
 
-            document.querySelector('main-app').set('user.logged', true);
-            document.querySelector('main-app').set('user.name', name);
-            document.querySelector('main-app').set('user.lastCheck', new Date().toLocaleString());
+            mainApp.set('user.logged', true);
+            mainApp.set('user.name', name);
+            mainApp.set('user.lastCheck', new Date().toLocaleString());
 
-            document.querySelector('main-app').toastMsg('Pobrano najnowszy plan');
+            mainApp.set('lodingData', false);
+
+            if(moveToSchedule){
+              mainApp.set('currentDate', new Date());
+              mainApp.set('route.path', '/main');
+
+            }
+
+            setTimeout(function(){
+              mainApp.toastMsg('Pobrano najnowszy plan');
+              // mainApp.set('activeSelected', new Date().getDay()-1);
+            },100);
+
 
 
           });
@@ -150,10 +163,12 @@
         }).fail(function(data) {
           // $('.result').append('<p>Niezalogowano</p>');
           console.log('Niezalogowano');
+          mainApp.set('lodingData', false);
         });
 
 
       }).fail(function() {
+        mainApp.set('lodingData', false);
         console.log('Błąd');
       });
 

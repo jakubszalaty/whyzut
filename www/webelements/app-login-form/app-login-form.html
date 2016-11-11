@@ -61,21 +61,22 @@
         }
       },
       clearLocalStorage: function(){
-        this.data = {
-          login: "",
-          password: ""
-        };
 
-        this.user = {
-          name: "Niezalogowany",
-          logged: false
-        };
+        this.set('data.login', "");
+        this.set('data.password', "");
 
-        this.elements = null;
+        this.set('user.name', "Niezalogowany");
+        this.set('user.logged', false);
+        this.set('user.lastCheck', null);
+
+        this.set('elements', []);
+        var mainApp = document.querySelector('main-app');
 
         setTimeout(function(){
           window.location.reload();
         },100);
+
+
       },
       initializeDefaultUserData: function(){
         this.data = {
