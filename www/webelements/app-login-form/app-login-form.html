@@ -42,12 +42,12 @@
       value="{{elements}}"
       ></iron-localstorage>
 
-    <paper-input id="login" label="Identyfikator" value="{{data.login}}"></paper-input>
-    <paper-input id="password" label="Hasło" type="password" value="{{data.password}}"></paper-input>
+    <paper-input id="login" disabled$="[[disabled]]" label="Identyfikator" value="{{data.login}}"></paper-input>
+    <paper-input id="password" disabled$="[[disabled]]" label="Hasło" type="password" value="{{data.password}}"></paper-input>
 
-    <paper-button id="connect" raised class="indigo">Zaloguj</paper-button>
+    <paper-button id="connect" disabled$="[[disabled]]" raised class="indigo">Zaloguj</paper-button>
 
-    <paper-button id="clear" raised class="red" on-tap="clearLocalStorage">Wyczyść dane</paper-button>
+    <paper-button id="clear" disabled$="[[disabled]]" raised class="red" on-tap="clearLocalStorage">Wyczyść dane</paper-button>
 
 
   </template>
@@ -59,6 +59,10 @@
       properties: {
         data: {
           type: Object
+        },
+        disabled: {
+          type: Boolean,
+          value: false
         }
       },
       clearLocalStorage: function(){

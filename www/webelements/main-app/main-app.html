@@ -146,6 +146,7 @@
         display: block;
         width: 100%;
         height: 3px;
+        position: absolute;
       }
 
       /*about*/
@@ -402,7 +403,7 @@
 
           <div class="content">
             <div class="setting-content">
-              <app-login-form></app-login-form>
+              <app-login-form disabled$="[[lodingData]]"></app-login-form>
             </div>
 
           </div>
@@ -490,7 +491,11 @@
       activeSelected: {
         type: Number,
         value: function(){
-          return new Date().getDay()-1;
+          // wyjatek na niedziele
+          var weekDay = new Date().getDay()-1;
+          if(weekDay==-1)
+            weekDay=6;
+          return weekDay;
         }
       },
       range:{
@@ -517,6 +522,9 @@
     ],
 
     _routePathChanged: function(path) {
+
+      // resize kalendarza
+      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler();
 
       if (path == '/main') {
         this.set('title','Plan');
@@ -557,9 +565,9 @@
           // -1 bo zwraca 1-7
           var weekDay = self.currentDate.getDay()-1;
           // wyjatek na niedziele
-
           if(weekDay==-1)
             weekDay=6;
+
 
 
           self.$.datePickerOuter.style.height = "";

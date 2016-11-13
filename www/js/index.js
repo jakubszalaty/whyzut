@@ -53,22 +53,22 @@
 
     },
     updateUserData: function(moveToSchedule){
-      // $('.result2').html('');
       var mainApp = document.querySelector('main-app');
       mainApp.set('lodingData', true);
 
+      var userData = JSON.parse(localStorage.userData);
+
+      var login = userData.login;
+      var password = userData.password;
+
+      if(!login || !password ){
+        mainApp.toastMsg('Błędne dane');
+        mainApp.set('lodingData', false);
+        return;
+      }
+
       $.get('https://edziekanat.zut.edu.pl/WU/PodzGodzin.aspx', function( data ) {
-        console.log('Pobrano strone logowania');
         $result = $('<div>');
-        var userData = JSON.parse(localStorage.userData);
-
-        var login = userData.login;
-        var password = userData.password;
-
-        if(!login || !password ){
-          console.log('Błędne dane');
-          return;
-        }
 
         $result.html(data);
         $form = $result.find('form');
@@ -86,11 +86,17 @@
           url: action,
           data: serialized,
         }).done(function(data, textStatus, request){
-          console.log('Zalogowano');
+
+
           $result.html(data);
-
           var name = $result.find('#ctl00_ctl00_ContentPlaceHolder_wumasterWhoIsLoggedIn').text().replace(/ –.*/,'');
+          // jesli name jest pusty to oznacza ze nie jestesmy na widoku planu czyli cos poszlo nie tak
+          if(name===""){
+            mainApp.toastMsg('Nie udało się zalogować');
+            mainApp.set('lodingData', false);
 
+            return ;
+          }
 
           $form = $result.find('form');
 
@@ -106,16 +112,9 @@
             data: serialized,
           }).done(function(data, textStatus, request){
             $result.html(data);
-            console.log('Pobrano!');
             $table = $result.find('#ctl00_ctl00_ContentPlaceHolder_RightContentPlaceHolder_dgDane');
 
             var keys = [];
-
-            // polskie znaki i spacje nie daja rady jako klucze w polymerze jest problem pozniej
-            // wiec łatwiej jest to zrobić recznie niz pisac do tego algorytm lel
-            // $table.find('.gridDaneHead').children().map(function(){
-            //   keys.push($(this).text());
-            // });
 
             // keys = ["Data_zajac", "Od", "Do", "Przedmiot", "Prowadzacy", "Sala", "Adres_budynku", "Forma_zajec_nazwa", "Forma_zalicz"];
             keys = ["date", "startTime", "endTime", "subject", "teacher", "room", "building", "formName", "examForm"];
@@ -153,7 +152,6 @@
 
             setTimeout(function(){
               mainApp.toastMsg('Pobrano najnowszy plan');
-              // mainApp.set('activeSelected', new Date().getDay()-1);
             },100);
 
 
@@ -162,14 +160,14 @@
 
         }).fail(function(data) {
           // $('.result').append('<p>Niezalogowano</p>');
-          console.log('Niezalogowano');
+          mainApp.toastMsg('Niezalogowano');
           mainApp.set('lodingData', false);
         });
 
 
       }).fail(function() {
         mainApp.set('lodingData', false);
-        console.log('Błąd');
+        mainApp.toastMsg('Błąd');
       });
 
 
