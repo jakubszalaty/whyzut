@@ -36,10 +36,18 @@
 
       // app.receivedEvent('deviceready');
       var connect = document.querySelector('#connect');
+      var clear = document.querySelector('#clear');
+
       var time;
       var eventsList = [];
       connect.addEventListener('click',function(){
         app.updateUserData(true);
+      },true);
+
+      clear.addEventListener('click',function(){
+        $.get('https://edziekanat.zut.edu.pl/WU/Wyloguj.aspx', function(){
+          window.location.reload();
+        });
       },true);
 
 
