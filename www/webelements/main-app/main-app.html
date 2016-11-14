@@ -451,7 +451,7 @@
 
                     <a onclick="window.open('mailto:jakub.szalaty@gmail.com', '_system');">
                       <div class="primary">
-                        email
+                        Kontakt
                       </div>
                       <div class="secondary dim"> jakub.szalaty@gmail.com </div>
                     </a>
@@ -467,9 +467,25 @@
                     <a onclick="window.open('https://github.com/nnaisur/whyzut', '_system');">
 
                       <div class="primary">
-                        github
+                        Github
                       </div>
                       <div class="secondary dim">https://github.com/nnaisur/whyzut</div>
+
+                    </a>
+                  </div>
+                </div>
+                <div class="border"></div>
+              </div>
+
+              <div class="item-outer">
+                <div class="item">
+                  <div class="pad">
+                    <a onclick="window.open('https://github.com/nnaisur/whyzut/issues', '_system');">
+
+                      <div class="primary">
+                        Zgłoś błąd lub zaproponuj funkcję
+                      </div>
+                      <div class="secondary dim">https://github.com/nnaisur/whyzut/issues</div>
 
                     </a>
                   </div>
@@ -541,15 +557,17 @@
       if(!self.route.path)
         return self.set('route.path','/main');
 
-      self.set('lastUpdate', self.getLastUpdate(self.user.lastCheck));
+      self.refreshLastUpdate();
 
       // aby aktualizowalo sie co minute
       setInterval(function(){
-        self.set('lastUpdate', self.getLastUpdate(self.user.lastCheck));
+        self.refreshLastUpdate();
       },60 * 1000);
 
     },
-
+    refreshLastUpdate: function(){
+      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck));
+    },
     toastMsg: function(text){
       if(!text)
         return;

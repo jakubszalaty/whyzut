@@ -152,6 +152,7 @@
 
             setTimeout(function(){
               mainApp.toastMsg('Pobrano najnowszy plan');
+              mainApp.refreshLastUpdate();
             },100);
 
 
