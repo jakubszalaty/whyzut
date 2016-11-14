@@ -85,6 +85,7 @@
       }
       .last-check{
         font-size: 12px;
+        text-align: center;
       }
       .yellow-button {
         text-transform: none;
@@ -259,6 +260,9 @@
         @apply(--layout-flex);
       }
 
+      [main-title]{
+        pointer-events: initial!important;
+      }
 
     </style>
 
@@ -304,15 +308,15 @@
         <!-- nav menu -->
         <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
           <paper-item route="/main" disabled="[[!user.logged]]">
-            <paper-icon-button icon="list"></paper-icon-button>
+            <paper-icon-button noink icon="list"></paper-icon-button>
             Plan
           </paper-item>
           <paper-item route="/settings">
-            <paper-icon-button icon="settings"></paper-icon-button>
+            <paper-icon-button noink icon="settings"></paper-icon-button>
             Ustawienia
           </paper-item>
           <paper-item route="/about">
-            <paper-icon-button icon="info"></paper-icon-button>
+            <paper-icon-button noink icon="info"></paper-icon-button>
             O mnie
           </paper-item>
         </paper-listbox>
@@ -326,13 +330,22 @@
 
           <app-header condenses effects="waterfall" fixed>
             <app-toolbar>
-              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-              <div main-title> Plan  </div>
+              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
+
+              <div main-title>
+                <paper-button on-tap="_toggleDatapicker">
+                  [[formatedCurrentDate]]
+                  <iron-icon hidden$="[[_datapickerVisible]]" icon="arrow-drop-up"></iron-icon>
+                  <iron-icon hidden$="[[!_datapickerVisible]]" icon="arrow-drop-down"></iron-icon>
+                </paper-button>
+              </div>
 
 
-              <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[user.lastCheck]] </div>
-              <paper-icon-button icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
-              <paper-icon-button icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_toggleDatapicker"></paper-icon-button>
+              <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[lastUpdate]] </div>
+
+              <paper-icon-button noink icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
+
+              <paper-icon-button noink icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_moveToToday"></paper-icon-button>
             </app-toolbar>
 
             <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
@@ -394,7 +407,7 @@
 
           <app-header condenses effects="waterfall" fixed>
             <app-toolbar>
-              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
               <div main-title> Ustawienia  </div>
             </app-toolbar>
             <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
@@ -414,11 +427,11 @@
 
           <app-header effects="waterfall resize-title blend-background parallax-background" condenses reveals>
             <app-toolbar>
-              <!-- <paper-icon-button icon="arrow-back"></paper-icon-button> -->
-              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+              <!-- <paper-icon-button noink icon="arrow-back"></paper-icon-button> -->
+              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
               <div condensed-title>Jakub Szalaty</div>
-              <!-- <paper-icon-button icon="create"></paper-icon-button> -->
-              <!-- <paper-icon-button icon="more-vert"></paper-icon-button> -->
+              <!-- <paper-icon-button noink icon="create"></paper-icon-button> -->
+              <!-- <paper-icon-button noink icon="more-vert"></paper-icon-button> -->
             </app-toolbar>
             <app-toolbar class="middle"></app-toolbar>
 
@@ -488,6 +501,14 @@
       route: {
         type: Object
       },
+      formatedCurrentDate:{
+        type: String,
+        computed: '_getFormatedCurrentDate(currentDate,activeSelected)'
+      },
+      lastUpdate:{
+        type: String,
+        computed: 'getLastUpdate(user.lastCheck)'
+      },
       activeSelected: {
         type: Number,
         value: function(){
@@ -505,36 +526,67 @@
       lodingData:{
         type: Boolean,
         value: false
+      },
+      _datapickerVisible: {
+        type: Boolean,
+        value: false
       }
     },
 
     attached: function(){
-      if(!this.user.logged)
-        return this.set('route.path','/settings');
+      var self = this;
+      if(!self.user.logged)
+        return self.set('route.path','/settings');
 
-      if(!this.route.path)
-        return this.set('route.path','/main');
+      if(!self.route.path)
+        return self.set('route.path','/main');
+
+      // aby aktualizowalo sie co minute
+      setInterval(function(){
+        self.set('lastUpdate',self.getLastUpdate(self.user.lastCheck));
+      },60 * 1000);
+
+    },
+
+    toastMsg: function(text){
+      if(!text)
+        return;
+      this.set('toastText',text);
+      this.$.updatedData.open();
     },
 
     observers: [
     '_routePathChanged(route.path)',
     '_dateChanged(currentDate)'
     ],
+    _moveToToday: function(){
+      this.currentDate = new Date();
+      // wyjatek na niedziele
+      var weekDay = new Date().getDay()-1;
+      if(weekDay==-1)
+        weekDay=6;
+      this.activeSelected = weekDay;
+    },
+    getLastUpdate: function(lastCheck){
+      if(lastCheck)
+        return moment(lastCheck).fromNow();
+      else
+        return "";
+    },
+
+    _getFormatedCurrentDate: function(currentDate,activeSelected){
+
+      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected)+1,'day').format('DD.MM.YY');
+      return date;
+
+    },
 
     _routePathChanged: function(path) {
-
       // resize kalendarza
       this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler();
 
-      if (path == '/main') {
-        this.set('title','Plan');
-      }
-
-      if (path == '/settings') {
-        this.set('title','Ustawienia');
-      }
-
     },
+
     _drawerSelected: function() {
       if (!this.$.drawer.persistent) this.$.drawer.close();
     },
@@ -542,15 +594,10 @@
     _refreshData: function() {
       app.updateUserData();
     },
-    toastMsg: function(text){
-      if(!text)
-        return;
-      this.set('toastText',text);
-      this.$.updatedData.open();
-    },
-    _toggleDatapicker: function(){
 
-      if(this.$.datePickerOuter.classList.toggle('open')){
+    _toggleDatapicker: function(){
+      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open');
+      if(this._datapickerVisible){
         var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
         this.$.datePickerOuter.style.height = height + 'px';
         this.$.swipePages.classList.add('shadow');
@@ -574,7 +621,7 @@
           self.$.swipePages.classList.remove('shadow');
           self.$.swipePages.classList.add('disabled-anim');
           self.$.swipePages.select(weekDay);
-
+          self._datapickerVisible = false;
           setTimeout(function(){
             self.$.swipePages.classList.remove('disabled-anim');
           },10);
@@ -588,9 +635,7 @@
         this.user = {
           name: "Niezalogowany",
           logged: false,
-          lastCheck: null,
-          // currentDate: new Date(),
-          // activeSelected: new Date().getDay()-1
+          lastCheck: null
         };
       }
     });

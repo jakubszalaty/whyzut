@@ -140,7 +140,7 @@
 
             mainApp.set('user.logged', true);
             mainApp.set('user.name', name);
-            mainApp.set('user.lastCheck', new Date().toLocaleString());
+            mainApp.set('user.lastCheck', new Date());
 
             mainApp.set('lodingData', false);
 
