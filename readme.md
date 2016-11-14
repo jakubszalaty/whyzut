@@ -47,10 +47,10 @@ Aplikacja dostępna tylko pod [linkiem](https://build.phonegap.com/apps/2350253/
 - napisanie "background task" do aktualizowania planu np. raz na godzine
 - wyświetlanie powiadomień o zbliżających się zajęciach
 - dodanie splash screena oraz ikon
-- dodać polskie nazwy miesięcy w kalendarzu
+- ~~dodać polskie nazwy miesięcy w kalendarzu~~
 - push notification
 - dodanie zakładki z ocenami
-- dodanie zakładki o mnie
+- ~~dodanie zakładki o mnie~~
 - angielska wersja readme
 
 ## Feedback

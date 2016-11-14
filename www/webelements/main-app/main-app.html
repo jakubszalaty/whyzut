@@ -363,7 +363,7 @@
 
 
             <app-toolbar id="datePickerOuter">
-              <paper-date-picker date={{currentDate}}></paper-date-picker>
+              <paper-date-picker locale="pl" date={{currentDate}}></paper-date-picker>
             </app-toolbar>
 
 
@@ -507,7 +507,7 @@
       },
       lastUpdate:{
         type: String,
-        computed: 'getLastUpdate(user.lastCheck)'
+        // computed: 'getLastUpdate(user.lastCheck)'
       },
       activeSelected: {
         type: Number,
@@ -541,9 +541,11 @@
       if(!self.route.path)
         return self.set('route.path','/main');
 
+      self.set('lastUpdate', self.getLastUpdate(self.user.lastCheck));
+
       // aby aktualizowalo sie co minute
       setInterval(function(){
-        self.set('lastUpdate',self.getLastUpdate(self.user.lastCheck));
+        self.set('lastUpdate', self.getLastUpdate(self.user.lastCheck));
       },60 * 1000);
 
     },
