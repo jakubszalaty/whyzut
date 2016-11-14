@@ -328,7 +328,8 @@
       <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
         <div route="/main" >
 
-          <app-header condenses effects="waterfall" fixed>
+          <!-- <app-header condenses effects="waterfall" fixed> -->
+          <app-header fixed>
             <app-toolbar>
               <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
 
@@ -596,7 +597,7 @@
 
     _getFormatedCurrentDate: function(currentDate,activeSelected){
 
-      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected)+1,'day').format('DD.MM.YY');
+      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected),'day').format('DD.MM.YY');
       return date;
 
     },
