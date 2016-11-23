@@ -40,15 +40,20 @@
 
       var time;
       var eventsList = [];
-      connect.addEventListener('click',function(){
-        app.updateUserData(true);
-      },true);
 
-      clear.addEventListener('click',function(){
-        $.get('https://edziekanat.zut.edu.pl/WU/Wyloguj.aspx', function(){
-          window.location.reload();
-        });
-      },true);
+      if(connect){
+        connect.addEventListener('click',function(){
+          app.updateUserData(true);
+        },true);
+      }
+
+      if(clear){
+        clear.addEventListener('click',function(){
+          $.get('https://edziekanat.zut.edu.pl/WU/Wyloguj.aspx', function(){
+            window.location.reload();
+          });
+        },true);
+      }
 
 
       app.setupStatusBar();
@@ -57,7 +62,7 @@
     },
     setupStatusBar: function() {
 
-      StatusBar.backgroundColorByHexString('#3f51b5');
+      StatusBar.backgroundColorByHexString('#303F9F');
 
     },
     updateUserData: function(moveToSchedule){
@@ -124,8 +129,8 @@
 
             var keys = [];
 
-            // keys = ["Data_zajac", "Od", "Do", "Przedmiot", "Prowadzacy", "Sala", "Adres_budynku", "Forma_zajec_nazwa", "Forma_zalicz"];
-            keys = ["date", "startTime", "endTime", "subject", "teacher", "room", "building", "formName", "examForm"];
+            //      Data zajęć,  Od,        Do,       Sala,  Przedmiot, Forma zajęć, Prowadzący,  Plan prowadzącego, Status sali
+            keys = ["date", "startTime", "endTime", "room", "subject", "formName", "teacher", "teacherSchedule", "roomState"];
 
             var elements = [];
 
