@@ -100,11 +100,13 @@
         <paper-card>
 
           <div class="box-info" style="background-color: [[_statusColor(elem.status)]]">
+            <div class="box-info-text" style="top:48px">
+              <div>{{ _statusName(elem.status) }}</div>
+            </div>
             <div class="box-info-text">
               <div>{{ elem.date }}</div>
               <div>{{ elem.dayName }}</div>
               <div>{{ elem.startTime }}</div>
-              <div>{{ _statusName(elem.status) }}</div>
             </div>
           </div>
           <div class="box-content">
