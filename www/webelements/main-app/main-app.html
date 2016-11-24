@@ -42,6 +42,7 @@
 <link rel="import" href="../paper-card-repeater/paper-card-repeater.html">
 <link rel="import" href="../iron-swipeable-page/iron-swipeable-page.html">
 
+
 <dom-module id="main-app">
 
   <template>
@@ -72,7 +73,7 @@
 
 
       app-header {
-        background-color: var(--paper-indigo-500);
+        background-color: var(--default-primary-color);
         color: #fff;
       }
 
@@ -89,7 +90,7 @@
       }
       .yellow-button {
         text-transform: none;
-        color: #eeff41;
+        color: var(--accent-color);
         position: absolute;
         right: 0;
         top: 8px;
@@ -162,7 +163,8 @@
         left: 0;
         width: 100%;
         color: #fff;
-        background-color: #3f51b5;
+        background-color: var(--default-primary-color);
+        /*background-color: #3f51b5;*/
         /*--app-header-background-front-layer: {
           background-image: url(/img/js.jpg);
         };*/
@@ -500,7 +502,7 @@
                     <div class="primary">
                       Wersja
                     </div>
-                    <div class="secondary dim">0.6.1</div>
+                    <div class="secondary dim">0.6.2</div>
                   </div>
                 </div>
                 <div class="border"></div>
@@ -564,18 +566,18 @@
 
     attached: function(){
       var self = this;
-      if(!self.user.logged)
-        return self.set('route.path','/settings');
-
-      if(!self.route.path)
-        return self.set('route.path','/main');
-
       self.refreshLastUpdate();
 
       // aby aktualizowalo sie co minute
       setInterval(function(){
         self.refreshLastUpdate();
       },60 * 1000);
+
+      if(!self.user.logged)
+        return self.set('route.path','/settings');
+
+      if(!self.route.path)
+        return self.set('route.path','/main');
 
     },
     refreshLastUpdate: function(){

@@ -147,6 +147,16 @@
               var date = obj.date.split(' ');
               obj.date = date[0];
               obj.dayName = date[1];
+              var color = elem.children()[0].style.color;
+              console.log(color);
+              if(color === 'rgb(0, 0, 255)')
+                obj.status = 'e';
+              else if(color === 'rgb(255, 0, 0)')
+                obj.status = 'o';
+              else if(color === 'rgb(0, 255, 0)')
+                obj.status = 'r';
+              else
+                obj.status = '';
 
             });
             $('paper-card-repeater').prop('elements',elements);

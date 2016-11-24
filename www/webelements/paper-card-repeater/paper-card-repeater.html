@@ -17,7 +17,7 @@
       .box-info {
         width: 100px;
         height: auto;
-        background-color: #3f51b5;
+        background-color: var(--default-primary-color);
         background-size: cover;
         position: relative;
       }
@@ -99,11 +99,12 @@
       <template is="dom-repeat" filter="{{isInRange(range,offsetStart,offsetEnd,date)}}" items="{{elements}}" as="elem">
         <paper-card>
 
-          <div class="box-info">
+          <div class="box-info" style="background-color: [[_statusColor(elem.status)]]">
             <div class="box-info-text">
               <div>{{ elem.date }}</div>
               <div>{{ elem.dayName }}</div>
               <div>{{ elem.startTime }}</div>
+              <div>{{ _statusName(elem.status) }}</div>
             </div>
           </div>
           <div class="box-content">
@@ -175,6 +176,25 @@
           return name;
 
         return name.slice(0, 30).trim() + "...";
+      },
+      _statusName: function (status) {
+        if(status == 'e')
+          return 'Egzamin';
+        if(status == 'o')
+          return 'Odwołane';
+        if(status == 'r')
+          return 'Rektorskie';
+        return '';
+      },
+      _statusColor: function (status) {
+        if(status == 'e')
+          return '#673AB7';
+        if(status == 'o')
+          return '#F44336';
+        if(status == 'r')
+          return '#F44336';
+
+        return '';
       },
       initializeDefaultValue: function(){
         this.elements = [];
