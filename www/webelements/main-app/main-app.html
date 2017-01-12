@@ -278,16 +278,20 @@
 
     <app-location use-hash-as-path route="{{route}}"></app-location>
     <app-route
-    route="{{route}}"
-    pattern="/:page"
-    data="{{routeData}}"
-    tail="{{subroute}}">
-  </app-route>
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}">
+    </app-route>
+    <!-- <app-route
+      route="{{subroute}}"
+      pattern="/:subject"
+      data="{{subrouteData}}">
+    </app-route> -->
 
   <paper-toast class="fit-bottom" id="updatedData" duration="0" text="[[toastText]]">
     <paper-button onclick="updatedData.toggle()" class="yellow-button">Ok</paper-button>
   </paper-toast>
-
   <!-- <app-scrollpos-control selected="{{activeSelected}}"></app-scrollpos-control> -->
   <app-drawer-layout>
 
@@ -308,16 +312,20 @@
         </app-header>
 
         <!-- nav menu -->
-        <paper-listbox attr-for-selected="route" selected="{{route.path}}"  on-iron-activate="_drawerSelected">
-          <paper-item route="/main" disabled="[[!user.logged]]">
+        <paper-listbox attr-for-selected="route" selected="{{routeData.page}}"  on-iron-activate="_drawerSelected">
+          <paper-item route="main" disabled="[[!user.logged]]">
             <paper-icon-button noink icon="list"></paper-icon-button>
             Plan
           </paper-item>
-          <paper-item route="/settings">
+          <paper-item route="exams">
+            <paper-icon-button noink icon="assignment-late"></paper-icon-button>
+            Egzaminy
+          </paper-item>
+          <paper-item route="settings">
             <paper-icon-button noink icon="settings"></paper-icon-button>
             Ustawienia
           </paper-item>
-          <paper-item route="/about">
+          <paper-item route="about">
             <paper-icon-button noink icon="info"></paper-icon-button>
             O mnie
           </paper-item>
@@ -327,8 +335,8 @@
     </app-drawer>
 
     <app-header-layout>
-      <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{route.path}}">
-        <div route="/main" >
+      <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{routeData.page}}">
+        <div route="main" >
 
           <!-- <app-header condenses effects="waterfall" fixed> -->
           <app-header fixed>
@@ -404,9 +412,10 @@
               </iron-swipeable-page>
             </iron-swipeable-pages>
           </div>
+
         </div>
 
-        <div route="/settings">
+        <div route="settings">
 
           <app-header condenses effects="waterfall" fixed>
             <app-toolbar>
@@ -424,9 +433,24 @@
 
           </div>
         </div>
+        <div route="exams">
+
+          <app-header condenses effects="waterfall" fixed>
+            <app-toolbar>
+              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
+              <div main-title> Egzaminy  </div>
+            </app-toolbar>
+            <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
+
+          </app-header>
+
+          <div class="content" style="padding:0;">
+            <paper-card-repeater exam="true"></paper-card-repeater>
+          </div>
+        </div>
 
 
-        <div class="about" route="/about">
+        <div route="about" class="about">
 
           <app-header effects="waterfall resize-title blend-background parallax-background" condenses reveals>
             <app-toolbar>
@@ -502,7 +526,7 @@
                     <div class="primary">
                       Wersja
                     </div>
-                    <div class="secondary dim">0.6.2</div>
+                    <div class="secondary dim">0.6.5</div>
                   </div>
                 </div>
                 <div class="border"></div>

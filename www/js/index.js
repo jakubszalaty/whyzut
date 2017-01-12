@@ -41,6 +41,9 @@ var app = {
 
     app.setupStatusBar()
 
+    // app.setupPush()
+    // app.setupFirebasePush()
+
 
   },
   setupStatusBar: function() {
@@ -116,7 +119,7 @@ var app = {
           keys = ['date', 'startTime', 'endTime', 'room', 'subject', 'formName', 'teacher', 'teacherSchedule', 'roomState']
 
           var elements = []
-
+          let id = 1
           $table.find('.gridDane').map(function(elemIndex){
             var elem = $(this)
             var obj = {}
@@ -128,10 +131,11 @@ var app = {
 
             })
             var date = obj.date.split(' ')
+            obj.id = id++
             obj.date = date[0]
             obj.dayName = date[1]
             var color = elem.children()[0].style.color
-            console.log(color)
+            // console.log(color)
             if(color === 'rgb(0, 0, 255)')
               obj.status = 'e'
             else if(color === 'rgb(255, 0, 0)')
@@ -182,22 +186,74 @@ var app = {
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
-    // var parentElement = document.getElementById(id)
-    // var listeningElement = parentElement.querySelector('.listening')
-    // var receivedElement = parentElement.querySelector('.received')
-
-    // listeningElement.setAttribute('style', 'display:none')
-    // receivedElement.setAttribute('style', 'display:block')
-
-    // https://edziekanat.zut.edu.pl/WU/Logowanie2.aspx
-    // cordovaHTTP.get('https://google.com/', {
-    //   id: 12,
-    //   message: 'test'
-    // }, { Authorization: 'OAuth2: token' }, function(response) {
-    //     console.log(response.status)
-    // }, function(response) {
-    //     console.error(response.error)
-    // })
     console.log('Received Event: ' + id)
+  },
+
+  setupFirebasePush: function(){
+    console.log('lelell')
+    console.log(FCMPlugin)
+    console.log('lelell')
+    FCMPlugin.getToken(
+      function(token){
+        // alert(token)
+        console.log(token)
+      },
+      function(err){
+        console.log('error retrieving token: ' + err)
+      })
+  },
+  setupPush: function() {
+    var push = PushNotification.init({
+      'android': {
+        'senderID': 'XXXXXXXX'
+      },
+      'ios': {
+        'sound': true,
+        'alert': true,
+        'badge': true
+      },
+      'windows': {}
+    })
+
+    push.on('registration', function(data) {
+      console.log('registration event: ' + data.registrationId)
+      var oldRegId = localStorage.getItem('registrationId')
+      if (oldRegId !== data.registrationId) {
+        // Save new registration ID
+        localStorage.setItem('registrationId', data.registrationId)
+        // Post registrationId to your app server as the value has changed
+      }
+    })
+    push.on('error', function(e) {
+      console.log('push error = ' + e.message)
+    })
+
+    push.on('notification', function(data) {
+      console.log('notification event')
+      navigator.notification.confirm(
+        'Chcesz pobrać najnowszą wersje aplikacji?',
+        function(buttonIndex) {
+          if (buttonIndex === 1) {
+            window.open(data.additionalData.url,'_system')
+          }
+        },
+        'Dostępna aktualizacja',
+        ['Pobierz','Później']
+      )
+      // navigator.notification.alert(
+      //    data.message,         // message
+      //    null,                 // callback
+      //    data.title,           // title
+      //    'Ok'                  // buttonName
+      // )
+
+    })
+
+    push.finish(function() {
+      console.log('success')
+    }, function() {
+      console.log('error')
+    })
+
   }
 }
