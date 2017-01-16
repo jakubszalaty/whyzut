@@ -28532,65 +28532,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     });
   </script>
 </dom-module>
-
-
-<style is="custom-style">
-
-  :root {
-    /*
-     * You can use these generic variables in your elements for easy theming.
-     * For example, if all your elements use `--primary-text-color` as its main
-     * color, then switching from a light to a dark theme is just a matter of
-     * changing the value of `--primary-text-color` in your application.
-     */
-    --primary-text-color: var(--light-theme-text-color);
-    --primary-background-color: var(--light-theme-background-color);
-    --secondary-text-color: var(--light-theme-secondary-color);
-    --disabled-text-color: var(--light-theme-disabled-color);
-    --divider-color: var(--light-theme-divider-color);
-    --error-color: var(--paper-deep-orange-a700);
-
-    /*
-     * Primary and accent colors. Also see color.html for more colors.
-     */
-    --primary-color: var(--paper-indigo-500);
-    --light-primary-color: var(--paper-indigo-100);
-    --dark-primary-color: var(--paper-indigo-700);
-
-    --accent-color: var(--paper-pink-a200);
-    --light-accent-color: var(--paper-pink-a100);
-    --dark-accent-color: var(--paper-pink-a400);
-
-
-    /*
-     * Material Design Light background theme
-     */
-    --light-theme-background-color: #ffffff;
-    --light-theme-base-color: #000000;
-    --light-theme-text-color: var(--paper-grey-900);
-    --light-theme-secondary-color: #737373;  /* for secondary text and icons */
-    --light-theme-disabled-color: #9b9b9b;  /* disabled/hint text */
-    --light-theme-divider-color: #dbdbdb;
-
-    /*
-     * Material Design Dark background theme
-     */
-    --dark-theme-background-color: var(--paper-grey-900);
-    --dark-theme-base-color: #ffffff;
-    --dark-theme-text-color: #ffffff;
-    --dark-theme-secondary-color: #bcbcbc;  /* for secondary text and icons */
-    --dark-theme-disabled-color: #646464;  /* disabled/hint text */
-    --dark-theme-divider-color: #3c3c3c;
-
-    /*
-     * Deprecated values because of their confusing names.
-     */
-    --text-primary-color: var(--dark-theme-text-color);
-    --default-primary-color: var(--primary-color);
-
-  }
-
-</style></div><dom-module id="main-app">
+</div><dom-module id="main-app">
 
   <template>
     <style is="custom-style">
@@ -29103,10 +29045,10 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         type: Number,
         value: function(){
           // wyjatek na niedziele
-          var weekDay = new Date().getDay()-1;
+          var weekDay = new Date().getDay()-1
           if(weekDay==-1)
-            weekDay=6;
-          return weekDay;
+            weekDay=6
+          return weekDay
         }
       },
       range:{
@@ -29124,113 +29066,114 @@ is separate from validation, and `allowed-pattern` does not affect how the input
     },
 
     attached: function(){
-      var self = this;
-      self.refreshLastUpdate();
+      var self = this
+      self.refreshLastUpdate()
 
       // aby aktualizowalo sie co minute
       setInterval(function(){
-        self.refreshLastUpdate();
-      },60 * 1000);
+        self.refreshLastUpdate()
+      },60 * 1000)
 
       if(!self.user.logged)
-        return self.set('route.path','/settings');
+        return self.set('route.path','/settings')
 
       if(!self.route.path)
-        return self.set('route.path','/main');
+        return self.set('route.path','/main')
 
     },
     refreshLastUpdate: function(){
-      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck));
+      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck))
     },
     toastMsg: function(text){
       if(!text)
-        return;
-      this.set('toastText',text);
-      this.$.updatedData.open();
+        return
+      this.set('toastText',text)
+      this.$.updatedData.open()
     },
 
     observers: [
-    '_routePathChanged(route.path)',
-    '_dateChanged(currentDate)'
+      '_routePathChanged(route.path)',
+      '_dateChanged(currentDate)'
     ],
     _moveToToday: function(){
-      this.currentDate = new Date();
+      this.currentDate = new Date()
       // wyjatek na niedziele
-      var weekDay = new Date().getDay()-1;
+      var weekDay = new Date().getDay()-1
       if(weekDay==-1)
-        weekDay=6;
-      this.activeSelected = weekDay;
+        weekDay=6
+      this.activeSelected = weekDay
     },
     getLastUpdate: function(lastCheck){
       if(lastCheck)
-        return moment(lastCheck).fromNow();
+        return moment(lastCheck).fromNow()
       else
-        return "";
+        return ''
     },
 
     _getFormatedCurrentDate: function(currentDate,activeSelected){
 
-      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected),'day').format('DD.MM.YY');
-      return date;
+      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected),'day').format('DD.MM.YY')
+      return date
 
     },
 
     _routePathChanged: function(path) {
       // resize kalendarza
-      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler();
+      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler()
 
     },
 
     _drawerSelected: function() {
-      if (!this.$.drawer.persistent) this.$.drawer.close();
+      if (!this.$.drawer.persistent) this.$.drawer.close()
     },
 
     _refreshData: function() {
-      app.updateUserData();
+      app.updateUserData()
     },
 
     _toggleDatapicker: function(){
-      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open');
+      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open')
       if(this._datapickerVisible){
-        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
-        this.$.datePickerOuter.style.height = height + 'px';
-        this.$.swipePages.classList.add('shadow');
+        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight
+        this.$.datePickerOuter.style.height = height + 'px'
+        this.$.swipePages.classList.add('shadow')
       }else{
-        this.$.datePickerOuter.style.height = "";
-        this.$.swipePages.classList.remove('shadow');
+        this.$.datePickerOuter.style.height = ''
+        this.$.swipePages.classList.remove('shadow')
       }
     },
     _dateChanged: function(){
-      var self = this;
+      var self = this
       if(self.$.datePickerOuter.classList.contains('open')){
         // -1 bo zwraca 1-7
-        var weekDay = self.currentDate.getDay()-1;
+        var weekDay = self.currentDate.getDay()-1
         // wyjatek na niedziele
         if(weekDay==-1)
-          weekDay=6;
+          weekDay=6
 
-        self.$.datePickerOuter.style.height = "";
-        self.$.swipePages.classList.remove('shadow');
-        self.$.swipePages.classList.add('disabled-anim');
-        self.$.swipePages.select(weekDay);
-        self._datapickerVisible = false;
+        self.$.datePickerOuter.style.height = ''
+        self.$.swipePages.classList.remove('shadow')
+        self.$.swipePages.classList.add('disabled-anim')
+        self.$.swipePages.select(weekDay)
+        this.$.datePickerOuter.classList.remove('open')
+        self._datapickerVisible = false
         setTimeout(function(){
-          self.$.swipePages.classList.remove('disabled-anim');
-        },10);
+          self.$.swipePages.classList.remove('disabled-anim')
+        },10)
 
       }
     },
     _isVisibleSchedule: function(logged, path){
-      return (logged && path == '/main');
+      return (logged && path == '/main')
     },
     initializeDefaultUserInfo: function(){
       this.user = {
-        name: "Niezalogowany",
+        name: 'Niezalogowany',
         logged: false,
         lastCheck: null
-      };
+      }
     }
-  });
+  })
 
   </script>
 
