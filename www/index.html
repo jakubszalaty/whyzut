@@ -41,12 +41,12 @@
 
   <link rel="stylesheet" type="text/css" href="css/index.css" />
 
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <script type="text/javascript" src="bower_components/moment/moment.js"></script>
-  <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.js"></script>
-  <script type="text/javascript" src="bower_components/moment/locale/pl.js"></script>
+  <script src="dist/webcomponents-lite.js"></script>
+  <script type="text/javascript" src="dist/moment.js"></script>
+  <script type="text/javascript" src="dist/moment-with-locales.js"></script>
+  <script type="text/javascript" src="dist/pl.js"></script>
   <!-- <link rel="import" href="webelements/main-app/main-app.html"> -->
-  <link rel="import" href="webelements/main-app/main-app.vulcanized.html">
+  <link rel="import" href="dist/main-app.html">
 
   <style>
     body {
@@ -60,11 +60,11 @@
 <body>
   <main-app></main-app>
 
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="dist/jquery.js"></script>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
   <script type="text/javascript">
-    app.initialize();
+    app.initialize()
   </script>
 </body>
 

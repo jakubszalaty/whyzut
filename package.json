@@ -1,0 +1,25 @@
+{
+  "name": "whyzut-tasks",
+  "version": "0.0.5",
+  "description": "## Opis",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnaisur/whyzut.git"
+  },
+  "author": "Jakub Szalaty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nnaisur/whyzut/issues"
+  },
+  "homepage": "https://github.com/nnaisur/whyzut#readme",
+  "dependencies": {
+    "gulp-vulcanize": "^6.1.0"
+  }
+}

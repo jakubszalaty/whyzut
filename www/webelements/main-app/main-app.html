@@ -668,36 +668,34 @@
     _dateChanged: function(){
       var self = this;
       if(self.$.datePickerOuter.classList.contains('open')){
-          // -1 bo zwraca 1-7
-          var weekDay = self.currentDate.getDay()-1;
-          // wyjatek na niedziele
-          if(weekDay==-1)
-            weekDay=6;
+        // -1 bo zwraca 1-7
+        var weekDay = self.currentDate.getDay()-1;
+        // wyjatek na niedziele
+        if(weekDay==-1)
+          weekDay=6;
 
+        self.$.datePickerOuter.style.height = "";
+        self.$.swipePages.classList.remove('shadow');
+        self.$.swipePages.classList.add('disabled-anim');
+        self.$.swipePages.select(weekDay);
+        self._datapickerVisible = false;
+        setTimeout(function(){
+          self.$.swipePages.classList.remove('disabled-anim');
+        },10);
 
-
-          self.$.datePickerOuter.style.height = "";
-          self.$.swipePages.classList.remove('shadow');
-          self.$.swipePages.classList.add('disabled-anim');
-          self.$.swipePages.select(weekDay);
-          self._datapickerVisible = false;
-          setTimeout(function(){
-            self.$.swipePages.classList.remove('disabled-anim');
-          },10);
-
-        }
-      },
-      _isVisibleSchedule: function(logged, path){
-        return (logged && path == '/main');
-      },
-      initializeDefaultUserInfo: function(){
-        this.user = {
-          name: "Niezalogowany",
-          logged: false,
-          lastCheck: null
-        };
       }
-    });
+    },
+    _isVisibleSchedule: function(logged, path){
+      return (logged && path == '/main');
+    },
+    initializeDefaultUserInfo: function(){
+      this.user = {
+        name: "Niezalogowany",
+        logged: false,
+        lastCheck: null
+      };
+    }
+  });
 
   </script>
 
