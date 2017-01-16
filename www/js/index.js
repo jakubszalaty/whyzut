@@ -44,7 +44,6 @@ var app = {
     navigator.splashscreen.hide()
 
     // app.setupPush()
-    app.setupFirebasePush()
 
 
   },
@@ -190,30 +189,16 @@ var app = {
   receivedEvent: function(id) {
     console.log('Received Event: ' + id)
   },
-
-  setupFirebasePush: function(){
-    console.log('window.FirebasePlugin', window.FirebasePlugin)
-    window.FirebasePlugin.getToken(function(token) {
-      console.log('token',token)
-    }, function(error) {
-      console.error(error)
-    })
-  },
   setupPush: function() {
     var push = PushNotification.init({
       'android': {
-        'senderID': 'XXXXXXXX'
-      },
-      'ios': {
-        'sound': true,
-        'alert': true,
-        'badge': true
-      },
-      'windows': {}
+        'senderID': 'XXXXXX'
+      }
     })
 
     push.on('registration', function(data) {
       console.log('registration event: ' + data.registrationId)
+
       var oldRegId = localStorage.getItem('registrationId')
       if (oldRegId !== data.registrationId) {
         // Save new registration ID
