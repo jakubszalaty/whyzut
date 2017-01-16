@@ -14,3 +14,5 @@ resources/signing
 
 # sublime
 *.sublime-workspace
+
+bower_components/
