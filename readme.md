@@ -19,6 +19,7 @@ Aplikacja dostępna tylko pod [linkiem](https://build.phonegap.com/apps/2350253/
 - jednym przyciskiem można pobrać najnowszy plan
 - plan wyświetlany jest tygodniami, z podziałem na konkretny dzień
 - możliwość wyboru konkretnego dnia z kalendarza
+- widok wyświetlający terminy egzaminów
 
 ## Zrzuty
 
@@ -37,21 +38,6 @@ Aplikacja dostępna tylko pod [linkiem](https://build.phonegap.com/apps/2350253/
 - html, css, javascript
 - phonegap - http://phonegap.com/
 - polymer 1.0 - http://polymer-project.org/1.0/
-
-## TO DO
-
-- dodawanie własnych powtarzalnych zajęć (np. wf)
-- ukrywanie zajęć ze względu na przedmiot, forme itd.
-- dodanie sekcji ogłoszenia
-- wyświetlenie zmienionych zajęć po pobraniu nowszego planu
-- napisanie "background task" do aktualizowania planu np. raz na godzine
-- wyświetlanie powiadomień o zbliżających się zajęciach
-- dodanie splash screena oraz ikon
-- ~~dodać polskie nazwy miesięcy w kalendarzu~~
-- push notification
-- dodanie zakładki z ocenami
-- ~~dodanie zakładki o mnie~~
-- angielska wersja readme
 
 ## Feedback
 
