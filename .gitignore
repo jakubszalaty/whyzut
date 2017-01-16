@@ -16,3 +16,4 @@ resources/signing
 *.sublime-workspace
 
 bower_components/
+node_modules/
