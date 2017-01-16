@@ -568,10 +568,10 @@
         type: Number,
         value: function(){
           // wyjatek na niedziele
-          var weekDay = new Date().getDay()-1;
+          var weekDay = new Date().getDay()-1
           if(weekDay==-1)
-            weekDay=6;
-          return weekDay;
+            weekDay=6
+          return weekDay
         }
       },
       range:{
@@ -589,113 +589,114 @@
     },
 
     attached: function(){
-      var self = this;
-      self.refreshLastUpdate();
+      var self = this
+      self.refreshLastUpdate()
 
       // aby aktualizowalo sie co minute
       setInterval(function(){
-        self.refreshLastUpdate();
-      },60 * 1000);
+        self.refreshLastUpdate()
+      },60 * 1000)
 
       if(!self.user.logged)
-        return self.set('route.path','/settings');
+        return self.set('route.path','/settings')
 
       if(!self.route.path)
-        return self.set('route.path','/main');
+        return self.set('route.path','/main')
 
     },
     refreshLastUpdate: function(){
-      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck));
+      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck))
     },
     toastMsg: function(text){
       if(!text)
-        return;
-      this.set('toastText',text);
-      this.$.updatedData.open();
+        return
+      this.set('toastText',text)
+      this.$.updatedData.open()
     },
 
     observers: [
-    '_routePathChanged(route.path)',
-    '_dateChanged(currentDate)'
+      '_routePathChanged(route.path)',
+      '_dateChanged(currentDate)'
     ],
     _moveToToday: function(){
-      this.currentDate = new Date();
+      this.currentDate = new Date()
       // wyjatek na niedziele
-      var weekDay = new Date().getDay()-1;
+      var weekDay = new Date().getDay()-1
       if(weekDay==-1)
-        weekDay=6;
-      this.activeSelected = weekDay;
+        weekDay=6
+      this.activeSelected = weekDay
     },
     getLastUpdate: function(lastCheck){
       if(lastCheck)
-        return moment(lastCheck).fromNow();
+        return moment(lastCheck).fromNow()
       else
-        return "";
+        return ''
     },
 
     _getFormatedCurrentDate: function(currentDate,activeSelected){
 
-      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected),'day').format('DD.MM.YY');
-      return date;
+      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected),'day').format('DD.MM.YY')
+      return date
 
     },
 
     _routePathChanged: function(path) {
       // resize kalendarza
-      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler();
+      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler()
 
     },
 
     _drawerSelected: function() {
-      if (!this.$.drawer.persistent) this.$.drawer.close();
+      if (!this.$.drawer.persistent) this.$.drawer.close()
     },
 
     _refreshData: function() {
-      app.updateUserData();
+      app.updateUserData()
     },
 
     _toggleDatapicker: function(){
-      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open');
+      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open')
       if(this._datapickerVisible){
-        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight;
-        this.$.datePickerOuter.style.height = height + 'px';
-        this.$.swipePages.classList.add('shadow');
+        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight
+        this.$.datePickerOuter.style.height = height + 'px'
+        this.$.swipePages.classList.add('shadow')
       }else{
-        this.$.datePickerOuter.style.height = "";
-        this.$.swipePages.classList.remove('shadow');
+        this.$.datePickerOuter.style.height = ''
+        this.$.swipePages.classList.remove('shadow')
       }
     },
     _dateChanged: function(){
-      var self = this;
+      var self = this
       if(self.$.datePickerOuter.classList.contains('open')){
         // -1 bo zwraca 1-7
-        var weekDay = self.currentDate.getDay()-1;
+        var weekDay = self.currentDate.getDay()-1
         // wyjatek na niedziele
         if(weekDay==-1)
-          weekDay=6;
+          weekDay=6
 
-        self.$.datePickerOuter.style.height = "";
-        self.$.swipePages.classList.remove('shadow');
-        self.$.swipePages.classList.add('disabled-anim');
-        self.$.swipePages.select(weekDay);
-        self._datapickerVisible = false;
+        self.$.datePickerOuter.style.height = ''
+        self.$.swipePages.classList.remove('shadow')
+        self.$.swipePages.classList.add('disabled-anim')
+        self.$.swipePages.select(weekDay)
+        this.$.datePickerOuter.classList.remove('open')
+        self._datapickerVisible = false
         setTimeout(function(){
-          self.$.swipePages.classList.remove('disabled-anim');
-        },10);
+          self.$.swipePages.classList.remove('disabled-anim')
+        },10)
 
       }
     },
     _isVisibleSchedule: function(logged, path){
-      return (logged && path == '/main');
+      return (logged && path == '/main')
     },
     initializeDefaultUserInfo: function(){
       this.user = {
-        name: "Niezalogowany",
+        name: 'Niezalogowany',
         logged: false,
         lastCheck: null
-      };
+      }
     }
-  });
+  })
 
   </script>
 
