@@ -44,7 +44,7 @@ var app = {
     navigator.splashscreen.hide()
 
     // app.setupPush()
-    // app.setupFirebasePush()
+    app.setupFirebasePush()
 
 
   },
@@ -192,17 +192,12 @@ var app = {
   },
 
   setupFirebasePush: function(){
-    console.log('lelell')
-    console.log(FCMPlugin)
-    console.log('lelell')
-    FCMPlugin.getToken(
-      function(token){
-        // alert(token)
-        console.log(token)
-      },
-      function(err){
-        console.log('error retrieving token: ' + err)
-      })
+    console.log('window.FirebasePlugin', window.FirebasePlugin)
+    window.FirebasePlugin.getToken(function(token) {
+      console.log('token',token)
+    }, function(error) {
+      console.error(error)
+    })
   },
   setupPush: function() {
     var push = PushNotification.init({
