@@ -37,7 +37,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="false"/>
     <preference name="FadeSplashScreenDuration" value="3000"/>
-    <preference name="SplashScreen" value="splash" />
+    <preference name="SplashScreen" value="screen"/>
     <icon src="icon.png" />
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
