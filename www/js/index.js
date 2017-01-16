@@ -41,6 +41,8 @@ var app = {
 
     app.setupStatusBar()
 
+    navigator.splashscreen.hide()
+
     // app.setupPush()
     // app.setupFirebasePush()
 
