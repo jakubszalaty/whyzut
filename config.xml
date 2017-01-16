@@ -33,6 +33,7 @@
     <plugin name="cordova-plugin-network-information" spec="~1.2.1" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenBackgroundColor" value="#3f51b5"/>
     <icon src="icon.png" />
     <platform name="android">
         <icon density="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
