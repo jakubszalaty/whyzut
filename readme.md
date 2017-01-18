@@ -10,6 +10,8 @@ Aplikacja dostępna tylko pod [linkiem](https://build.phonegap.com/apps/2350253/
 
 *Dostępne są tylko wersje na Androida i WindowsPhone(nie testowana).*
 
+**Wersja desktop**
+[Link](https://github.com/nnaisur/whyzut-desktop)
 
 ## Funkcjonalności
 
