@@ -57,13 +57,16 @@
         z-index: -1;
       }
 
+
       .content paper-card {
         margin-bottom: 8px;
       }
 
+
       .content paper-card:last-child {
         margin-bottom: 0px;
       }
+
 
 
       .setting-content {
@@ -79,19 +82,23 @@
       }
 
 
+
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
+
 
 
       .drawer-container {
         /*height: 182px;*/
       }
 
+
       .last-check {
         font-size: 12px;
         text-align: center;
       }
+
 
       .yellow-button {
         text-transform: none;
@@ -100,6 +107,7 @@
         right: 0;
         top: 8px;
       }
+
 
 
       paper-date-picker {
@@ -114,11 +122,13 @@
       }
 
 
+
       paper-date-picker {
         --paper-date-picker-heading: {
           display: none!important;
         }
       }
+
 
 
       #datePickerOuter {
@@ -132,9 +142,11 @@
       }
 
 
+
       #swipePages.shadow {
         overflow: hidden;
       }
+
 
       #swipePages.shadow:after {
         content: "";
@@ -150,13 +162,16 @@
         will-change: all;
       }
 
+
       #swipePages {
         min-height: calc(100vh - 64px);
       }
 
+
       #swipePages.disabled-anim>* {
         transition: none!important;
       }
+
 
       .progress-bar {
         display: block;
@@ -166,10 +181,12 @@
       }
       /*about*/
 
+
       .about {
         font-family: 'Roboto', 'Noto', sans-serif;
         background-color: #eee;
       }
+
 
 
       .about app-header {
@@ -186,9 +203,11 @@
       }
 
 
+
       .about paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
+
 
 
       .about paper-fab {
@@ -201,10 +220,12 @@
       }
 
 
+
       .about paper-fab.shrink-to-hidden {
         -webkit-transform: scale3d(0, 0, 0);
         transform: scale3d(0, 0, 0);
       }
+
 
 
       .about app-toolbar.middle {
@@ -212,14 +233,17 @@
       }
 
 
+
       .about app-toolbar.bottom {
         height: 92px;
       }
 
 
+
       .about .sample-content {
         padding-top: 276px;
       }
+
 
 
       .about [title] {
@@ -229,10 +253,12 @@
       }
 
 
+
       .about [condensed-title] {
         margin-left: 20px;
         font-weight: 300;
       }
+
 
 
       .about #itemsList {
@@ -240,9 +266,11 @@
         height: calc(100vh - 276px);
       }
 
+
       .about .item-outer {
         position: relative!important;
       }
+
 
       .about .item {
         @apply(--layout-horizontal);
@@ -252,11 +280,13 @@
       }
 
 
+
       .about .item:focus,
       .about .item.selected:focus {
         outline: 0;
         background-color: #ddd;
       }
+
 
 
       .about .about .avatar {
@@ -268,6 +298,7 @@
       }
 
 
+
       .about .pad {
         @apply(--layout-flex);
         @apply(--layout-vertical);
@@ -275,9 +306,11 @@
       }
 
 
+
       .about .primary {
         font-size: 16px;
       }
+
 
 
       .about .secondary {
@@ -285,9 +318,11 @@
       }
 
 
+
       .about .dim {
         color: gray;
       }
+
 
 
 
@@ -551,6 +586,20 @@
                         Wersja
                       </div>
                       <div class="secondary dim">0.7.5.1</div>
+                    </div>
+                  </div>
+                  <div class="border"></div>
+                </div>
+
+                <div class="item-outer">
+                  <div class="item">
+                    <div class="pad">
+                      <a onclick="window.open('https://build.phonegap.com/apps/2350253/share', '_system');">
+                        <div class="primary">
+                          Pobierz nowszą wersję
+                        </div>
+                        <div class="secondary dim">0.7.5.1</div>
+                      </a>
                     </div>
                   </div>
                   <div class="border"></div>
