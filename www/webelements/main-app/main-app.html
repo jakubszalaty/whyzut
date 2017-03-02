@@ -56,38 +56,43 @@
         /*szybki fix*/
         z-index: -1;
       }
-      .content paper-card{
+
+      .content paper-card {
         margin-bottom: 8px;
       }
-      .content paper-card:last-child{
+
+      .content paper-card:last-child {
         margin-bottom: 0px;
       }
 
-      .setting-content{
+
+      .setting-content {
         padding: 0 8px;
       }
     </style>
 
 
     <style>
-
-
       app-header {
         background-color: var(--default-primary-color);
         color: #fff;
       }
 
+
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
 
-      .drawer-container{
+
+      .drawer-container {
         /*height: 182px;*/
       }
-      .last-check{
+
+      .last-check {
         font-size: 12px;
         text-align: center;
       }
+
       .yellow-button {
         text-transform: none;
         color: var(--accent-color);
@@ -96,23 +101,27 @@
         top: 8px;
       }
 
-      paper-date-picker{
+
+      paper-date-picker {
         margin: 0 auto;
         position: relative;
       }
+
       @media (max-width: 520px) {
-        paper-date-picker{
+        paper-date-picker {
           left: calc(50% - 164px);
         }
       }
 
-      paper-date-picker{
+
+      paper-date-picker {
         --paper-date-picker-heading: {
           display: none!important;
         }
       }
 
-      #datePickerOuter{
+
+      #datePickerOuter {
         transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         height: 0px;
         overflow: hidden;
@@ -122,9 +131,11 @@
         will-change: height;
       }
 
+
       #swipePages.shadow {
         overflow: hidden;
       }
+
       #swipePages.shadow:after {
         content: "";
         position: absolute;
@@ -138,24 +149,28 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: all;
       }
-      #swipePages{
+
+      #swipePages {
         min-height: calc(100vh - 64px);
       }
-      #swipePages.disabled-anim > *{
+
+      #swipePages.disabled-anim>* {
         transition: none!important;
       }
-      .progress-bar{
+
+      .progress-bar {
         display: block;
         width: 100%;
         height: 3px;
         position: absolute;
       }
-
       /*about*/
+
       .about {
         font-family: 'Roboto', 'Noto', sans-serif;
         background-color: #eee;
       }
+
 
       .about app-header {
         position: fixed;
@@ -170,9 +185,11 @@
         };*/
       }
 
+
       .about paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
+
 
       .about paper-fab {
         position: absolute;
@@ -183,22 +200,27 @@
         transition: 0.1s transform;
       }
 
+
       .about paper-fab.shrink-to-hidden {
         -webkit-transform: scale3d(0, 0, 0);
         transform: scale3d(0, 0, 0);
       }
 
+
       .about app-toolbar.middle {
         height: 120px;
       }
+
 
       .about app-toolbar.bottom {
         height: 92px;
       }
 
+
       .about .sample-content {
         padding-top: 276px;
       }
+
 
       .about [title] {
         margin-left: 64px;
@@ -206,18 +228,22 @@
         font-weight: 300;
       }
 
+
       .about [condensed-title] {
         margin-left: 20px;
         font-weight: 300;
       }
 
-      .about #itemsList{
+
+      .about #itemsList {
         @apply(--layout-flex);
         height: calc(100vh - 276px);
       }
-      .about .item-outer{
+
+      .about .item-outer {
         position: relative!important;
       }
+
       .about .item {
         @apply(--layout-horizontal);
         cursor: pointer;
@@ -225,11 +251,13 @@
         border-bottom: 1px solid #DDD;
       }
 
+
       .about .item:focus,
       .about .item.selected:focus {
         outline: 0;
         background-color: #ddd;
       }
+
 
       .about .about .avatar {
         height: 40px;
@@ -239,49 +267,45 @@
         background-color: #ddd;
       }
 
+
       .about .pad {
         @apply(--layout-flex);
         @apply(--layout-vertical);
         padding: 0 16px;
       }
 
+
       .about .primary {
         font-size: 16px;
       }
 
+
       .about .secondary {
         font-size: 14px;
       }
+
 
       .about .dim {
         color: gray;
       }
 
 
+
       .about iron-list {
         @apply(--layout-flex);
       }
 
-      [main-title]{
+      [main-title] {
         pointer-events: initial!important;
       }
-
     </style>
 
-    <iron-localstorage
-    name="userInfo"
-    value="{{user}}"
-    on-iron-localstorage-load-empty="initializeDefaultUserInfo"
-    ></iron-localstorage>
+    <iron-localstorage name="userInfo" value="{{user}}" on-iron-localstorage-load-empty="initializeDefaultUserInfo"></iron-localstorage>
 
 
 
     <app-location use-hash-as-path route="{{route}}"></app-location>
-    <app-route
-      route="{{route}}"
-      pattern="/:page"
-      data="{{routeData}}"
-      tail="{{subroute}}">
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}">
     </app-route>
     <!-- <app-route
       route="{{subroute}}"
@@ -289,415 +313,413 @@
       data="{{subrouteData}}">
     </app-route> -->
 
-  <paper-toast class="fit-bottom" id="updatedData" duration="0" text="[[toastText]]">
-    <paper-button onclick="updatedData.toggle()" class="yellow-button">Ok</paper-button>
-  </paper-toast>
-  <!-- <app-scrollpos-control selected="{{activeSelected}}"></app-scrollpos-control> -->
-  <app-drawer-layout>
+    <paper-toast class="fit-bottom" id="updatedData" duration="0" text="[[toastText]]">
+      <paper-button onclick="updatedData.toggle()" class="yellow-button">Ok</paper-button>
+    </paper-toast>
+    <!-- <app-scrollpos-control selected="{{activeSelected}}"></app-scrollpos-control> -->
+    <app-drawer-layout>
 
-    <app-drawer id="drawer" swipe-open>
-      <app-header-layout has-scrolling-region>
+      <app-drawer id="drawer" swipe-open>
+        <app-header-layout has-scrolling-region>
 
-        <app-header fixed>
-          <app-toolbar style="height: 128px;"></app-toolbar>
+          <app-header fixed>
+            <app-toolbar style="height: 128px;"></app-toolbar>
 
-          <app-toolbar style="height: 64px;">
-            <div class="drawer-container">
-              <div class="info">
-                <div class="name">Witaj, {{user.name}}!</div>
+            <app-toolbar style="height: 64px;">
+              <div class="drawer-container">
+                <div class="info">
+                  <div class="name">Witaj, {{user.name}}!</div>
+                </div>
               </div>
+            </app-toolbar>
+
+          </app-header>
+
+          <!-- nav menu -->
+          <paper-listbox attr-for-selected="route" selected="{{routeData.page}}" on-iron-activate="_drawerSelected">
+            <paper-item route="main" disabled="[[!user.logged]]">
+              <paper-icon-button noink icon="list"></paper-icon-button>
+              Plan
+            </paper-item>
+            <paper-item route="exams">
+              <paper-icon-button noink icon="assignment-late"></paper-icon-button>
+              Egzaminy
+            </paper-item>
+            <paper-item route="settings">
+              <paper-icon-button noink icon="settings"></paper-icon-button>
+              Ustawienia
+            </paper-item>
+            <paper-item route="about">
+              <paper-icon-button noink icon="info"></paper-icon-button>
+              O mnie
+            </paper-item>
+          </paper-listbox>
+
+        </app-header-layout>
+      </app-drawer>
+
+      <app-header-layout>
+        <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{routeData.page}}">
+          <div route="main">
+
+            <!-- <app-header condenses effects="waterfall" fixed> -->
+            <app-header fixed>
+              <app-toolbar>
+                <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
+
+                <div main-title>
+                  <paper-button on-tap="_toggleDatapicker">
+                    [[formatedCurrentDate]]
+                    <iron-icon hidden$="[[_datapickerVisible]]" icon="arrow-drop-up"></iron-icon>
+                    <iron-icon hidden$="[[!_datapickerVisible]]" icon="arrow-drop-down"></iron-icon>
+                  </paper-button>
+                </div>
+
+
+                <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[lastUpdate]] </div>
+
+                <paper-icon-button noink icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
+
+                <paper-icon-button noink icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_moveToToday"></paper-icon-button>
+              </app-toolbar>
+
+              <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
+                <paper-tab>Pon</paper-tab>
+                <paper-tab>Wt</paper-tab>
+                <paper-tab>Śr</paper-tab>
+                <paper-tab>Czw</paper-tab>
+                <paper-tab>Pt</paper-tab>
+                <paper-tab>Sb</paper-tab>
+                <paper-tab>Nd</paper-tab>
+              </paper-tabs>
+
+              <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
+
+
+
+              <app-toolbar id="datePickerOuter">
+                <paper-date-picker locale="pl" date={{currentDate}}></paper-date-picker>
+              </app-toolbar>
+
+
+            </app-header>
+            <div class="content" style="padding:0;">
+
+              <iron-swipeable-pages id="swipePages" no-cycle="true" selected="{{activeSelected}}">
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="0" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="1" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="2" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="3" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="4" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="5" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+
+                <iron-swipeable-page>
+                  <paper-card-repeater offset-start="6" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
+                </iron-swipeable-page>
+              </iron-swipeable-pages>
             </div>
-          </app-toolbar>
 
-        </app-header>
+          </div>
 
-        <!-- nav menu -->
-        <paper-listbox attr-for-selected="route" selected="{{routeData.page}}"  on-iron-activate="_drawerSelected">
-          <paper-item route="main" disabled="[[!user.logged]]">
-            <paper-icon-button noink icon="list"></paper-icon-button>
-            Plan
-          </paper-item>
-          <paper-item route="exams">
-            <paper-icon-button noink icon="assignment-late"></paper-icon-button>
-            Egzaminy
-          </paper-item>
-          <paper-item route="settings">
-            <paper-icon-button noink icon="settings"></paper-icon-button>
-            Ustawienia
-          </paper-item>
-          <paper-item route="about">
-            <paper-icon-button noink icon="info"></paper-icon-button>
-            O mnie
-          </paper-item>
-        </paper-listbox>
+          <div route="settings">
+
+            <app-header condenses effects="waterfall" fixed>
+              <app-toolbar>
+                <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
+                <div main-title> Ustawienia </div>
+              </app-toolbar>
+              <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
+
+            </app-header>
+
+            <div class="content">
+              <div class="setting-content">
+                <app-login-form disabled$="[[lodingData]]"></app-login-form>
+              </div>
+
+            </div>
+          </div>
+          <div route="exams">
+
+            <app-header condenses effects="waterfall" fixed>
+              <app-toolbar>
+                <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
+                <div main-title> Egzaminy </div>
+              </app-toolbar>
+              <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
+
+            </app-header>
+
+            <div class="content" style="padding:0;">
+              <paper-card-repeater exam="true"></paper-card-repeater>
+            </div>
+          </div>
+
+
+          <div route="about" class="about">
+
+            <app-header effects="waterfall resize-title blend-background parallax-background" condenses reveals>
+              <app-toolbar>
+                <!-- <paper-icon-button noink icon="arrow-back"></paper-icon-button> -->
+                <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
+                <div condensed-title>Jakub Szalaty</div>
+                <!-- <paper-icon-button noink icon="create"></paper-icon-button> -->
+                <!-- <paper-icon-button noink icon="more-vert"></paper-icon-button> -->
+              </app-toolbar>
+              <app-toolbar class="middle"></app-toolbar>
+
+              <app-toolbar class="bottom">
+                <div main-title>Jakub Szalaty</div>
+
+              </app-toolbar>
+            </app-header>
+            <!-- <paper-fab icon="star"></paper-fab> -->
+
+            <div class="sample-content">
+              <iron-list id="itemsList" items="[[data]]" selected-items="{{selectedItems}}" selection-enabled multi-selection>
+
+                <div class="item-outer">
+                  <div class="item">
+                    <div class="pad">
+
+                      <a onclick="window.open('mailto:jakub.szalaty@gmail.com', '_system');">
+                        <div class="primary">
+                          Kontakt
+                        </div>
+                        <div class="secondary dim"> jakub.szalaty@gmail.com </div>
+                      </a>
+
+                    </div>
+                  </div>
+                  <div class="border"></div>
+                </div>
+
+                <div class="item-outer">
+                  <div class="item">
+                    <div class="pad">
+                      <a onclick="window.open('https://github.com/nnaisur/whyzut', '_system');">
+
+                        <div class="primary">
+                          Github
+                        </div>
+                        <div class="secondary dim">https://github.com/nnaisur/whyzut</div>
+
+                      </a>
+                    </div>
+                  </div>
+                  <div class="border"></div>
+                </div>
+
+                <div class="item-outer">
+                  <div class="item">
+                    <div class="pad">
+                      <a onclick="window.open('https://github.com/nnaisur/whyzut/issues', '_system');">
+
+                        <div class="primary">
+                          Zgłoś błąd lub zaproponuj funkcję
+                        </div>
+                        <div class="secondary dim">https://github.com/nnaisur/whyzut/issues</div>
+
+                      </a>
+                    </div>
+                  </div>
+                  <div class="border"></div>
+                </div>
+
+                <div class="item-outer">
+                  <div class="item">
+                    <div class="pad">
+                      <div class="primary">
+                        Wersja
+                      </div>
+                      <div class="secondary dim">0.7.5</div>
+                    </div>
+                  </div>
+                  <div class="border"></div>
+                </div>
+
+              </iron-list>
+            </div>
+
+          </div>
+
+
+        </neon-animated-pages>
 
       </app-header-layout>
-    </app-drawer>
 
-    <app-header-layout>
-      <neon-animated-pages id="mainPages" attr-for-selected="route" selected="{{routeData.page}}">
-        <div route="main" >
-
-          <!-- <app-header condenses effects="waterfall" fixed> -->
-          <app-header fixed>
-            <app-toolbar>
-              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
-
-              <div main-title>
-                <paper-button on-tap="_toggleDatapicker">
-                  [[formatedCurrentDate]]
-                  <iron-icon hidden$="[[_datapickerVisible]]" icon="arrow-drop-up"></iron-icon>
-                  <iron-icon hidden$="[[!_datapickerVisible]]" icon="arrow-drop-down"></iron-icon>
-                </paper-button>
-              </div>
-
-
-              <div class="last-check" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]"> [[lastUpdate]] </div>
-
-              <paper-icon-button noink icon="refresh" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_refreshData"></paper-icon-button>
-
-              <paper-icon-button noink icon="today" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]" on-tap="_moveToToday"></paper-icon-button>
-            </app-toolbar>
-
-            <paper-tabs sticky selected="{{activeSelected}}" hidden$="[[!_isVisibleSchedule(user.logged,route.path)]]">
-              <paper-tab>Pon</paper-tab>
-              <paper-tab>Wt</paper-tab>
-              <paper-tab>Śr</paper-tab>
-              <paper-tab>Czw</paper-tab>
-              <paper-tab>Pt</paper-tab>
-              <paper-tab>Sb</paper-tab>
-              <paper-tab>Nd</paper-tab>
-            </paper-tabs>
-
-            <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
-
-
-
-            <app-toolbar id="datePickerOuter">
-              <paper-date-picker locale="pl" date={{currentDate}}></paper-date-picker>
-            </app-toolbar>
-
-
-          </app-header>
-          <div class="content" style="padding:0;">
-
-            <iron-swipeable-pages id="swipePages" no-cycle="true" selected="{{activeSelected}}">
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="0" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="1" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="2" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="3" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="4" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="5" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-
-              <iron-swipeable-page>
-                <paper-card-repeater offset-start="6" range="isoweek" date="{{currentDate}}"></paper-card-repeater>
-              </iron-swipeable-page>
-            </iron-swipeable-pages>
-          </div>
-
-        </div>
-
-        <div route="settings">
-
-          <app-header condenses effects="waterfall" fixed>
-            <app-toolbar>
-              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
-              <div main-title> Ustawienia  </div>
-            </app-toolbar>
-            <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
-
-          </app-header>
-
-          <div class="content">
-            <div class="setting-content">
-              <app-login-form disabled$="[[lodingData]]"></app-login-form>
-            </div>
-
-          </div>
-        </div>
-        <div route="exams">
-
-          <app-header condenses effects="waterfall" fixed>
-            <app-toolbar>
-              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
-              <div main-title> Egzaminy  </div>
-            </app-toolbar>
-            <paper-progress class="progress-bar" indeterminate bottom-item hidden$="[[!lodingData]]"></paper-progress>
-
-          </app-header>
-
-          <div class="content" style="padding:0;">
-            <paper-card-repeater exam="true"></paper-card-repeater>
-          </div>
-        </div>
-
-
-        <div route="about" class="about">
-
-          <app-header effects="waterfall resize-title blend-background parallax-background" condenses reveals>
-            <app-toolbar>
-              <!-- <paper-icon-button noink icon="arrow-back"></paper-icon-button> -->
-              <paper-icon-button noink icon="menu" drawer-toggle></paper-icon-button>
-              <div condensed-title>Jakub Szalaty</div>
-              <!-- <paper-icon-button noink icon="create"></paper-icon-button> -->
-              <!-- <paper-icon-button noink icon="more-vert"></paper-icon-button> -->
-            </app-toolbar>
-            <app-toolbar class="middle"></app-toolbar>
-
-            <app-toolbar class="bottom">
-              <div main-title>Jakub Szalaty</div>
-
-            </app-toolbar>
-          </app-header>
-          <!-- <paper-fab icon="star"></paper-fab> -->
-
-          <div class="sample-content">
-            <iron-list id="itemsList" items="[[data]]" selected-items="{{selectedItems}}" selection-enabled multi-selection>
-
-              <div class="item-outer">
-                <div class="item">
-                  <div class="pad">
-
-                    <a onclick="window.open('mailto:jakub.szalaty@gmail.com', '_system');">
-                      <div class="primary">
-                        Kontakt
-                      </div>
-                      <div class="secondary dim"> jakub.szalaty@gmail.com </div>
-                    </a>
-
-                  </div>
-                </div>
-                <div class="border"></div>
-              </div>
-
-              <div class="item-outer">
-                <div class="item">
-                  <div class="pad">
-                    <a onclick="window.open('https://github.com/nnaisur/whyzut', '_system');">
-
-                      <div class="primary">
-                        Github
-                      </div>
-                      <div class="secondary dim">https://github.com/nnaisur/whyzut</div>
-
-                    </a>
-                  </div>
-                </div>
-                <div class="border"></div>
-              </div>
-
-              <div class="item-outer">
-                <div class="item">
-                  <div class="pad">
-                    <a onclick="window.open('https://github.com/nnaisur/whyzut/issues', '_system');">
-
-                      <div class="primary">
-                        Zgłoś błąd lub zaproponuj funkcję
-                      </div>
-                      <div class="secondary dim">https://github.com/nnaisur/whyzut/issues</div>
-
-                    </a>
-                  </div>
-                </div>
-                <div class="border"></div>
-              </div>
-
-              <div class="item-outer">
-                <div class="item">
-                  <div class="pad">
-                    <div class="primary">
-                      Wersja
-                    </div>
-                    <div class="secondary dim">0.7.5</div>
-                  </div>
-                </div>
-                <div class="border"></div>
-              </div>
-
-            </iron-list>
-          </div>
-
-        </div>
-
-
-      </neon-animated-pages>
-
-    </app-header-layout>
-
-  </app-drawer-layout>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'main-app',
-
-    properties: {
-      route: {
-        type: Object
-      },
-      formatedCurrentDate:{
-        type: String,
-        computed: '_getFormatedCurrentDate(currentDate,activeSelected)'
-      },
-      lastUpdate:{
-        type: String,
-        // computed: 'getLastUpdate(user.lastCheck)'
-      },
-      activeSelected: {
-        type: Number,
-        value: function(){
-          // wyjatek na niedziele
-          var weekDay = new Date().getDay()-1
-          if(weekDay==-1)
-            weekDay=6
-          return weekDay
-        }
-      },
-      range:{
-        type: String,
-        value: 'isoweek'
-      },
-      lodingData:{
-        type: Boolean,
-        value: false
-      },
-      _datapickerVisible: {
-        type: Boolean,
-        value: false
-      }
-    },
-
-    attached: function(){
-      var self = this
-      self.refreshLastUpdate()
-
-      // aby aktualizowalo sie co minute
-      setInterval(function(){
-        self.refreshLastUpdate()
-      },60 * 1000)
-
-      if(!self.user.logged)
-        return self.set('route.path','/settings')
-
-      if(!self.route.path)
-        return self.set('route.path','/main')
-
-    },
-    refreshLastUpdate: function(){
-      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck))
-    },
-    toastMsg: function(text){
-      if(!text)
-        return
-      this.set('toastText',text)
-      this.$.updatedData.open()
-    },
-
-    observers: [
-      '_routePathChanged(route.path)',
-      '_dateChanged(currentDate)'
-    ],
-    _moveToToday: function(){
-      this.currentDate = new Date()
-      // wyjatek na niedziele
-      var weekDay = new Date().getDay()-1
-      if(weekDay==-1)
-        weekDay=6
-      this.activeSelected = weekDay
-    },
-    getLastUpdate: function(lastCheck){
-      if(lastCheck)
-        return moment(lastCheck).fromNow()
-      else
-        return ''
-    },
-
-    _getFormatedCurrentDate: function(currentDate,activeSelected){
-
-      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected),'day').format('DD.MM.YY')
-      return date
-
-    },
-
-    _routePathChanged: function(path) {
-      // resize kalendarza
-      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler()
-
-    },
-
-    _drawerSelected: function() {
-      if (!this.$.drawer.persistent) this.$.drawer.close()
-    },
-
-    _refreshData: function() {
-      app.updateUserData()
-    },
-
-    _toggleDatapicker: function(){
-      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open')
-      if(this._datapickerVisible){
-        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight
-        this.$.datePickerOuter.style.height = height + 'px'
-        this.$.swipePages.classList.add('shadow')
-      }else{
-        this.$.datePickerOuter.style.height = ''
-        this.$.swipePages.classList.remove('shadow')
-      }
-    },
-    _dateChanged: function(){
-      var self = this
-      if(self.$.datePickerOuter.classList.contains('open')){
-        // -1 bo zwraca 1-7
-        var weekDay = self.currentDate.getDay()-1
-        // wyjatek na niedziele
-        if(weekDay==-1)
-          weekDay=6
-
-        self.$.datePickerOuter.style.height = ''
-        self.$.swipePages.classList.remove('shadow')
-        self.$.swipePages.classList.add('disabled-anim')
-        self.$.swipePages.select(weekDay)
-        this.$.datePickerOuter.classList.remove('open')
-        self._datapickerVisible = false
-        setTimeout(function(){
-          self.$.swipePages.classList.remove('disabled-anim')
-        },10)
-
-      }
-    },
-    _isVisibleSchedule: function(logged, path){
-      return (logged && path == '/main')
-    },
-    initializeDefaultUserInfo: function(){
-      this.user = {
-        name: 'Niezalogowany',
-        logged: false,
-        lastCheck: null
-      }
-    }
-  })
-
+    </app-drawer-layout>
+
+  </template>
+
+  <script>
+                                  Polymer({
+
+                                    is: 'main-app',
+
+                                    properties: {
+                                      route: {
+                                        type: Object
+                                      },
+                                      formatedCurrentDate: {
+                                        type: String,
+                                        computed: '_getFormatedCurrentDate(currentDate,activeSelected)'
+                                      },
+                                      lastUpdate: {
+                                        type: String,
+                                        // computed: 'getLastUpdate(user.lastCheck)'
+                                      },
+                                      activeSelected: {
+                                        type: Number,
+                                        value: function () {
+                                          // wyjatek na niedziele
+                                          var weekDay = new Date().getDay() - 1
+                                          if (weekDay == -1)
+                                            weekDay = 6
+                                          return weekDay
+                                        }
+                                      },
+                                      range: {
+                                        type: String,
+                                        value: 'isoweek'
+                                      },
+                                      lodingData: {
+                                        type: Boolean,
+                                        value: false
+                                      },
+                                      _datapickerVisible: {
+                                        type: Boolean,
+                                        value: false
+                                      }
+                                    },
+
+                                    attached: function () {
+                                      var self = this
+                                      self.refreshLastUpdate()
+
+                                      // aby aktualizowalo sie co minute
+                                      setInterval(function () {
+                                        self.refreshLastUpdate()
+                                      }, 60 * 1000)
+
+                                      if (!self.user.logged)
+                                        return self.set('route.path', '/settings')
+
+                                      if (!self.route.path)
+                                        return self.set('route.path', '/main')
+
+                                    },
+                                    refreshLastUpdate: function () {
+                                      this.set('lastUpdate', this.getLastUpdate(this.user.lastCheck))
+                                    },
+                                    toastMsg: function (text) {
+                                      if (!text)
+                                        return
+                                      this.set('toastText', text)
+                                      this.$.updatedData.open()
+                                    },
+
+                                    observers: [
+                                      '_routePathChanged(route.path)',
+                                      '_dateChanged(currentDate)'
+                                    ],
+                                    _moveToToday: function () {
+                                      this.currentDate = new Date()
+                                      // wyjatek na niedziele
+                                      var weekDay = new Date().getDay() - 1
+                                      if (weekDay == -1)
+                                        weekDay = 6
+                                      this.activeSelected = weekDay
+                                    },
+                                    getLastUpdate: function (lastCheck) {
+                                      if (lastCheck)
+                                        return moment(lastCheck).fromNow()
+                                      else
+                                        return ''
+                                    },
+
+                                    _getFormatedCurrentDate: function (currentDate, activeSelected) {
+
+                                      var date = moment(currentDate).startOf('week').add(parseInt(activeSelected), 'day').format('DD.MM.YY')
+                                      return date
+
+                                    },
+
+                                    _routePathChanged: function (path) {
+                                      // resize kalendarza
+                                      this.$.datePickerOuter.querySelector('paper-date-picker')._resizeHandler()
+
+                                    },
+
+                                    _drawerSelected: function () {
+                                      if (!this.$.drawer.persistent) this.$.drawer.close()
+                                    },
+
+                                    _refreshData: function () {
+                                      app.updateUserData()
+                                    },
+
+                                    _toggleDatapicker: function () {
+                                      this._datapickerVisible = this.$.datePickerOuter.classList.toggle('open')
+                                      if (this._datapickerVisible) {
+                                        var height = this.$.datePickerOuter.querySelector('paper-date-picker').clientHeight
+                                        this.$.datePickerOuter.style.height = height + 'px'
+                                        this.$.swipePages.classList.add('shadow')
+                                      } else {
+                                        this.$.datePickerOuter.style.height = ''
+                                        this.$.swipePages.classList.remove('shadow')
+                                      }
+                                    },
+                                    _dateChanged: function () {
+                                      var self = this
+                                      if (self.$.datePickerOuter.classList.contains('open')) {
+                                        // -1 bo zwraca 1-7
+                                        var weekDay = self.currentDate.getDay() - 1
+                                        // wyjatek na niedziele
+                                        if (weekDay == -1)
+                                          weekDay = 6
+
+                                        self.$.datePickerOuter.style.height = ''
+                                        self.$.swipePages.classList.remove('shadow')
+                                        self.$.swipePages.classList.add('disabled-anim')
+                                        self.$.swipePages.select(weekDay)
+                                        this.$.datePickerOuter.classList.remove('open')
+                                        self._datapickerVisible = false
+                                        setTimeout(function () {
+                                          self.$.swipePages.classList.remove('disabled-anim')
+                                        }, 10)
+
+                                      }
+                                    },
+                                    _isVisibleSchedule: function (logged, path) {
+                                      return (logged && path == '/main')
+                                    },
+                                    initializeDefaultUserInfo: function () {
+                                      this.user = {
+                                        name: 'Niezalogowany',
+                                        logged: false,
+                                        lastCheck: null
+                                      }
+                                    }
+                                  })
   </script>
 
 </dom-module>
