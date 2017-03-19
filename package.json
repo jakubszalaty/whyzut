@@ -7,6 +7,8 @@
     "test": "test"
   },
   "scripts": {
+    "serve": "phonegap serve --port 1338",
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
