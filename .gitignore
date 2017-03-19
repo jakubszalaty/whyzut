@@ -17,3 +17,5 @@ resources/signing
 
 bower_components/
 node_modules/
+
+.vscode/
