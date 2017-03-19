@@ -1,7 +1,7 @@
 {
   "name": "whyzut-tasks",
-  "version": "0.0.5",
-  "description": "## Opis",
+  "version": "0.7.5",
+  "description": "Mobile app for edziekanat.zut.edu.pl.",
   "main": "gulpfile.js",
   "directories": {
     "test": "test"
